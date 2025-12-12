@@ -284,7 +284,6 @@ header {
 
     .marquee-content {
         display: flex;
-        animation: marquee 55s linear infinite;
     }
 
     h1 {
@@ -311,11 +310,19 @@ header {
 #marquee-primary {
     background-color: $primary;
     color: $color-body;
+
+    .marquee-content {
+        animation: marquee 50s linear infinite;
+    }
 }
 
 #marquee-secondary {
     background-color: $secondary;
     color: $color-special-heading;
+
+    .marquee-content {
+        animation: marquee 60s linear infinite;
+    }
 }
 
 @keyframes marquee {
