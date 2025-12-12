@@ -1,0 +1,380 @@
+// Global styles
+::selection {
+    background-color: $secondary;
+    color: $primary;
+}
+
+// Firefox support
+::-moz-selection {
+    background-color: $secondary;
+    color: $primary;
+}
+
+html,
+body {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    color: $color-body;
+    font-family: $font-body;
+    font-weight: 100;
+    font-style: normal;
+    padding-top: 60px;
+    position: relative;
+    @include font-size(1.4rem);
+
+    @include color-mode(dark) {
+        background-color: #1e1e1e;
+        color: #f1f1f1;
+    }
+}
+
+header,
+section,
+footer {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+}
+
+header,
+footer {
+    a {
+        &:hover,
+        &:focus {
+            color: $primary !important;
+        }
+    }
+}
+
+.mh-100 {
+    min-height: 100vh;
+}
+
+a {
+    color: $color-link;
+    text-decoration: none;
+    @include transition(ease, 0.3s);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $font-headings;
+    font-optical-sizing: auto;
+}
+
+.big-heading {
+    @include font-size(5rem);
+}
+
+.mt-100 {
+    margin-top: 100px;
+}
+
+.mt-60 {
+    margin-top: 60px;
+}
+
+.py-60 {
+    padding: 60px 0;
+}
+
+.pt-60 {
+    padding-top: 60px;
+}
+
+.pb-60 {
+    padding-bottom: 60px;
+}
+
+.py-30 {
+    padding: 30px 0;
+}
+
+.pt-30 {
+    padding-top: 30px;
+}
+
+.pb-30 {
+    padding-bottom: 30px;
+}
+
+.elemento-parallax {
+    will-change: transform;
+    transform: translateY(0);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transition: transform 0.1s ease-out;
+    pointer-events: none; // Opcional: evita interferencias con clicks
+}
+
+.btn {
+    font-family: $font-body;
+    font-weight: normal;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+.btn-secondary {
+    &:hover {
+        color: $primary;
+    }
+}
+
+.rounded-corners {
+    border-radius: 25px;
+}
+
+.badge {
+    --bs-badge-font-weight: normal;
+    text-transform: uppercase;
+}
+
+.img-zoom-container {
+    overflow: hidden;
+    display: block;
+
+    img {
+        transition: transform 1.8s ease;
+        display: block;
+        width: 100%;
+        height: auto;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.card {
+    border: none;
+
+    p {
+        @include font-size(1.2rem);
+    }
+
+    .card-img-top-link {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        overflow: hidden;
+        z-index: 1;
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 2;
+        }
+    }
+}
+
+.rounded-badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+}
+
+.list-group-item {
+    background-color: transparent;
+    color: #000;
+    transition: all 0.3s ease;
+
+    .fa-chevron-right {
+        transition: transform 0.3s ease;
+    }
+
+    &:hover {
+        background-color: transparent;
+
+        .fa-chevron-right {
+            transform: translateX(8px);
+        }
+    }
+}
+
+header {
+    width: 100%;
+    height: auto;
+    padding: 15px 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    @include transition(ease, 0.2s);
+
+    a {
+        color: $color-body;
+
+        &:hover,
+        &:focus {
+            color: $color-link;
+        }
+    }
+
+    #logo-navbar {
+        width: 300px;
+        @include transition(ease, 0.2s);
+    }
+
+    #mburger {
+        color: $color-body;
+
+        &:hover,
+        &:focus {
+            color: $color-link;
+        }
+    }
+}
+
+.navbar-scroll {
+    background-color: $secondary;
+    padding: 10px 30px !important;
+    @include transition(ease, 0.3s);
+
+    a {
+        color: $color-white;
+
+        &:hover,
+        &:focus {
+            color: $color-link;
+        }
+    }
+
+    #logo-navbar {
+        width: 250px !important;
+    }
+
+    #mburger {
+        color: $color-white;
+
+        &:hover,
+        &:focus {
+            color: $color-link;
+        }
+    }
+}
+
+#map {
+    float: left;
+    line-height: 0;
+    width: 100%;
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.marquee {
+    background-color: $primary;
+    padding: 15px 0;
+    overflow: hidden;
+
+    .marquee-content {
+        display: flex;
+        animation: marquee 55s linear infinite;
+    }
+
+    h1 {
+        flex-shrink: 0;
+        white-space: nowrap;
+        margin-bottom: 0;
+        padding-right: 3rem;
+    }
+
+    // Speed up on mobile
+    @media (max-width: 768px) {
+        .marquee-content {
+            animation-duration: 15s;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .marquee-content {
+            animation-duration: 10s;
+        }
+    }
+}
+
+#marquee-primary {
+    background-color: $primary;
+    color: $color-body;
+}
+
+#marquee-secondary {
+    background-color: $secondary;
+    color: $color-special-heading;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+#jumbotron {
+    padding: 14px 0 30px;
+}
+
+.cta {
+    background: linear-gradient(in oklab, #4e770d, 30%, #1d1a13);
+    color: $color-white;
+
+    h2 {
+        font-family: $font-body;
+        @include font-size(1.6rem);
+    }
+}
+
+.brands {
+    background: linear-gradient(in oklab, #4e770d, 30%, #1d1a13);
+    color: $color-white;
+
+    h2 {
+        font-family: $font-body;
+        @include font-size(1.6rem);
+    }
+}
+
+footer {
+    background-color: $secondary;
+    color: $color-white;
+
+    a {
+        color: $color-white;
+
+        &:hover,
+        &:focus {
+            color: $color-link;
+        }
+    }
+
+    h1 {
+        color: $color-special-heading;
+    }
+
+    nav,
+    address {
+        @include font-size(1.2rem);
+    }
+
+    .container-fluid {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}

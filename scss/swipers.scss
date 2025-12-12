@@ -1,0 +1,47 @@
+// swiperBrands
+.swiper-brands {
+    position: relative;
+    padding-bottom: 40px;
+
+    .swiper-wrapper {
+        display: flex;
+    }
+
+    .swiper-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    // Scrollbar positioning
+    .swiper-scrollbar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        background: $white;
+        border-radius: 10px;
+
+        // The draggable scrollbar element
+        .swiper-scrollbar-drag {
+            background: $primary;
+            border-radius: 10px;
+            cursor: grab;
+
+            &:active {
+                cursor: grabbing;
+                background: $primary;
+            }
+        }
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-up(md) {
+    .swiper-brands .swiper-scrollbar {
+        width: 60% !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+}

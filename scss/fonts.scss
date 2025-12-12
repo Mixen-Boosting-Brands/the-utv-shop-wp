@@ -1,0 +1,13 @@
+// FontAwesome
+$fa-font-path: "../fonts/webfonts" !default;
+
+@import "../node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
+@import "../node_modules/@fortawesome/fontawesome-free/scss/regular";
+@import "../node_modules/@fortawesome/fontawesome-free/scss/solid";
+@import "../node_modules/@fortawesome/fontawesome-free/scss/brands";
+
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Russo+One&display=swap");
+
+// Fonts
+$font-body: "Rubik", sans-serif;
+$font-headings: "Russo One", sans-serif;
