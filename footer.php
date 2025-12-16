@@ -52,26 +52,31 @@
                         <p><strong>Policies</strong></p>
                         <nav>
                             <ul class="list-unstyled">
+                                <?php
+                                $footer_pages = [
+                                    13 => "Terms & Conditions",
+                                    3 => "Privacy Policy",
+                                    15 => "Shipping Policy",
+                                    11 => "Refund Policy",
+                                ];
+
+                                foreach (
+                                    $footer_pages
+                                    as $page_id => $fallback_title
+                                ):
+                                    if (get_post_status($page_id)): ?>
                                 <li>
-                                    <a href="#" target="_blank"
-                                        >Terms & Conditions</a
-                                    >
+                                    <a href="<?php echo esc_url(
+                                        get_permalink($page_id),
+                                    ); ?>">
+                                        <?php echo esc_html(
+                                            get_the_title($page_id),
+                                        ); ?>
+                                    </a>
                                 </li>
-                                <li>
-                                    <a href="#" target="_blank"
-                                        >Privacy Policy</a
-                                    >
-                                </li>
-                                <li>
-                                    <a href="#" target="_blank"
-                                        >Shipping Policy</a
-                                    >
-                                </li>
-                                <li>
-                                    <a href="#" target="_blank"
-                                        >Refund Policy</a
-                                    >
-                                </li>
+                                <?php endif;
+                                endforeach;
+                                ?>
                             </ul>
                         </nav>
                     </div>
