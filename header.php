@@ -175,17 +175,14 @@
                     </div>
                     <div class="col-6 col-lg-2 my-auto text-end">
                         <ul class="list-inline mb-0">
+                        <?php if (function_exists("WC")): ?>
                             <li class="list-inline-item">
-                                <a href="#">
-                                    <span
-                                        class="badge text-bg-primary rounded-circle rounded-badge"
-                                    >
-                                        <i
-                                            class="fa-solid fa-cart-shopping"
-                                        ></i>
-                                    </span>
+                                <a class="badge text-bg-primary" href="<?php echo wc_get_cart_url(); ?>">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    <span class="cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
                                 </a>
                             </li>
+                        <?php endif; ?>
                             <li class="list-inline-item">
                                 <a
                                     id="mburger"
