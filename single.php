@@ -1,71 +1,314 @@
 <?php get_header(); ?>
 
-	<main role="main" aria-label="Content">
-	<!-- section -->
-	<section>
+<section id="marquee-primary" class="marquee">
+    <div class="marquee-content">
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+        <h1>Turbocharged Adventures, Built to Last</h1>
+    </div>
+</section>
 
-	<?php if ( have_posts() ) : while (have_posts() ) : the_post(); ?>
+<?php while (have_posts()):
+    the_post(); ?>
 
-		<!-- article -->
-		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<section id="jumbotron">
+    <div class="container">
+        <div class="row" data-aos="fade-up" data-aos-duration="1000">
+            <div class="col">
+                <h1 class="big-heading text-uppercase">
+                    <?php the_title(); ?>
+                </h1>
+            </div>
+        </div>
+        <div class="row" data-aos="fade-up" data-aos-duration="1200">
+            <div class="col-12">
+                <?php echo get_custom_breadcrumb(); ?>
+            </div>
+        </div>
+    </div>
+</section>
 
-			<!-- post thumbnail -->
-			<?php if ( has_post_thumbnail() ) : // Check if Thumbnail exists. ?>
-				<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
-					<?php the_post_thumbnail(); // Fullsize image for the single post. ?>
-				</a>
-			<?php endif; ?>
-			<!-- /post thumbnail -->
+<section class="pb-30">
+    <div class="container">
+        <div class="row" data-aos="fade-up" data-aos-duration="1400">
+            <div class="col-lg-8 offset-lg-2">
+                <?php
+    // Post meta information
+    ?>
+                <div class="post-meta mb-4">
+                    <span class="post-date">
+                        <i class="fa-regular fa-calendar"></i>
+                        <?php echo get_the_date(); ?>
+                    </span>
 
-			<!-- post title -->
-			<h1>
-				<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
-			</h1>
-			<!-- /post title -->
+                    <?php if (has_category()): ?>
+                    <span class="post-category ms-3">
+                        <i class="fa-solid fa-folder"></i>
+                        <?php the_category(", "); ?>
+                    </span>
+                    <?php endif; ?>
 
-			<!-- post details -->
-			<span class="date">
-				<time datetime="<?php the_time( 'Y-m-d' ); ?> <?php the_time( 'H:i' ); ?>">
-					<?php the_date(); ?> <?php the_time(); ?>
-				</time>
-			</span>
-			<span class="author"><?php esc_html_e( 'Published by', 'html5blank' ); ?> <?php the_author_posts_link(); ?></span>
-			<span class="comments"><?php if ( comments_open( get_the_ID() ) ) comments_popup_link( __( 'Leave your thoughts', 'html5blank' ), __( '1 Comment', 'html5blank' ), __( '% Comments', 'html5blank' ) ); ?></span>
-			<!-- /post details -->
+                    <span class="post-author ms-3">
+                        <i class="fa-solid fa-user"></i>
+                        <?php the_author_posts_link(); ?>
+                    </span>
 
-			<?php the_content(); // Dynamic Content. ?>
+                    <?php if (has_tag()): ?>
+                    <span class="post-tags d-block mt-2">
+                        <i class="fa-solid fa-tags"></i>
+                        <?php the_tags("", ", "); ?>
+                    </span>
+                    <?php endif; ?>
+                </div>
 
-			<?php the_tags( __( 'Tags: ', 'html5blank' ), ', ', '<br>' ); // Separated by commas with a line break at the end. ?>
+                <?php // Check if post has featured image
 
-			<p><?php esc_html_e( 'Categorised in: ', 'html5blank' ); the_category( ', ' ); // Separated by commas. ?></p>
+    if (has_post_thumbnail()): ?>
+                <div class="post-featured-image mb-4">
+                    <?php the_post_thumbnail("large", [
+                        "class" => "img-fluid rounded-corners",
+                    ]); ?>
+                </div>
+                <?php endif; ?>
 
-			<p><?php esc_html_e( 'This post was written by ', 'html5blank' ); the_author(); ?></p>
+                <div class="post-content">
+                    <?php the_content(); ?>
+                </div>
 
-			<?php edit_post_link(); // Always handy to have Edit Post Links available. ?>
+                <?php // Display post links for multi-page content
+                wp_link_pages([
+                    "before" =>
+                        '<div class="page-links mt-4"><span class="page-links-title">Pages:</span>',
+                    "after" => "</div>",
+                    "link_before" => "<span>",
+                    "link_after" => "</span>",
+                ]); ?>
 
-			<?php comments_template(); ?>
+                <?php
+    // Post navigation (Previous/Next post)
+    ?>
+                <div class="post-navigation mt-5 mb-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <?php
+                            $prev_post = get_previous_post();
+                            if ($prev_post): ?>
+                            <a href="<?php echo get_permalink(
+                                $prev_post,
+                            ); ?>" class="btn btn-outline-primary rounded-pill">
+                                <i class="fa-solid fa-arrow-left"></i> Previous Post
+                            </a>
+                            <?php endif;
+                            ?>
+                        </div>
+                        <div class="col-6 text-end">
+                            <?php
+                            $next_post = get_next_post();
+                            if ($next_post): ?>
+                            <a href="<?php echo get_permalink(
+                                $next_post,
+                            ); ?>" class="btn btn-outline-primary rounded-pill">
+                                Next Post <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                            <?php endif;
+                            ?>
+                        </div>
+                    </div>
+                </div>
 
-		</article>
-		<!-- /article -->
+                <?php // Comments section
 
-	<?php endwhile; ?>
+    if (comments_open() || get_comments_number()):
+                    comments_template();
+                endif; ?>
+            </div>
+        </div>
+    </div>
+</section>
 
-	<?php else : ?>
+<?php
+endwhile; ?>
 
-		<!-- article -->
-		<article>
+<section id="marquee-secondary" class="marquee">
+    <div class="marquee-content">
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+        <h1>Related Articles</h1>
+    </div>
+</section>
 
-			<h1><?php esc_html_e( 'Sorry, nothing to display.', 'html5blank' ); ?></h1>
+<section class="pt-30 pb-15">
+    <div class="container">
+        <div class="row" data-aos="fade-up" data-aos-duration="1000">
+            <div class="col-12">
+                <h1 class="text-uppercase">Related Posts</h1>
+                <p>More stories from our blog.</p>
+            </div>
+        </div>
+        <div class="row">
+            <?php
+            // Query for related posts by category
+            $categories = get_the_category();
+            $category_ids = [];
 
-		</article>
-		<!-- /article -->
+            if ($categories) {
+                foreach ($categories as $category) {
+                    $category_ids[] = $category->term_id;
+                }
+            }
 
-	<?php endif; ?>
+            $args = [
+                "post_type" => "post",
+                "posts_per_page" => 4,
+                "post__not_in" => [get_the_ID()],
+                "orderby" => "rand",
+            ];
 
-	</section>
-	<!-- /section -->
-	</main>
+            // Add category filter if categories exist
+            if (!empty($category_ids)) {
+                $args["category__in"] = $category_ids;
+            }
 
-<?php get_sidebar(); ?>
+            $related_posts = new WP_Query($args);
+            $duration = 1200;
+
+            if ($related_posts->have_posts()):
+                while ($related_posts->have_posts()):
+                    $related_posts->the_post(); ?>
+            <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-duration="<?php echo $duration; ?>">
+                <div class="card">
+                    <a class="card-img-top-link rounded-corners img-zoom-container" href="<?php the_permalink(); ?>">
+                        <span class="badge text-bg-primary rounded-circle rounded-badge">
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </span>
+                        <?php if (has_post_thumbnail()) {
+                            the_post_thumbnail("medium", [
+                                "class" => "card-img-top",
+                            ]);
+                        } else {
+                            echo '<img src="' .
+                                esc_url(get_template_directory_uri()) .
+                                '/assets/images/thumb-product-tall.png" class="card-img-top" alt="' .
+                                esc_attr(get_the_title()) .
+                                '" />';
+                        } ?>
+                    </a>
+                    <div class="card-body">
+                        <a href="<?php the_permalink(); ?>">
+                            <h5 class="card-title"><?php the_title(); ?></h5>
+                        </a>
+                        <p class="card-text"><?php echo wp_trim_words(
+                            get_the_excerpt(),
+                            15,
+                        ); ?></p>
+                        <p class="text-muted small">
+                            <i class="fa-regular fa-calendar"></i> <?php echo get_the_date(); ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <?php $duration += 200;
+                endwhile;
+                wp_reset_postdata();
+            endif;
+            ?>
+        </div>
+    </div>
+</section>
+
+<section class="pt-15 pb-30">
+    <div class="container">
+        <div class="row" data-aos="fade-up" data-aos-duration="1000">
+            <div class="col-6 my-auto">
+                <h1 class="text-uppercase">Best Sellers</h1>
+                <p>Chosen for peak performance.</p>
+            </div>
+            <div class="col-6 my-auto text-end">
+                <a class="btn btn-primary rounded-pill" href="<?php echo get_permalink(
+                    wc_get_page_id("shop"),
+                ); ?>">Shop now</a>
+            </div>
+        </div>
+        <div class="row">
+            <?php
+            // Query for best selling products
+            $args = [
+                "post_type" => "product",
+                "posts_per_page" => 4,
+                "meta_key" => "total_sales",
+                "orderby" => "meta_value_num",
+                "order" => "DESC",
+            ];
+
+            $bestsellers = new WP_Query($args);
+            $duration = 1200;
+
+            if ($bestsellers->have_posts()):
+                while ($bestsellers->have_posts()):
+
+                    $bestsellers->the_post();
+                    global $product;
+                    ?>
+            <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-duration="<?php echo $duration; ?>">
+                <div class="card">
+                    <a class="card-img-top-link rounded-corners img-zoom-container" href="<?php the_permalink(); ?>">
+                        <?php if (has_post_thumbnail()) {
+                            the_post_thumbnail("medium", [
+                                "class" => "card-img-top",
+                            ]);
+                        } else {
+                            echo '<img src="' .
+                                wc_placeholder_img_src() .
+                                '" class="card-img-top" alt="' .
+                                esc_attr(get_the_title()) .
+                                '" />';
+                        } ?>
+                    </a>
+                    <div class="card-body">
+                        <a href="<?php the_permalink(); ?>">
+                            <h5 class="card-title"><?php the_title(); ?></h5>
+                        </a>
+                        <p class="card-text"><?php echo wp_trim_words(
+                            get_the_excerpt(),
+                            15,
+                        ); ?></p>
+                        <p class="price fw-bold"><?php echo $product->get_price_html(); ?></p>
+                    </div>
+                </div>
+            </div>
+            <?php $duration += 200;
+                endwhile;
+                wp_reset_postdata();
+            endif;
+            ?>
+        </div>
+    </div>
+</section>
 
 <?php get_footer(); ?>
