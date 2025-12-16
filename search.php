@@ -157,7 +157,6 @@
                                         esc_attr(get_the_title()) .
                                         '" />';
                                 } ?>
-                                <span class="badge bg-primary position-absolute top-0 start-0 m-2">Product</span>
                             </a>
                             <div class="card-body">
                                 <a href="<?php the_permalink(); ?>">
@@ -219,7 +218,6 @@
                                         esc_attr(get_the_title()) .
                                         '" />';
                                 } ?>
-                                <span class="badge bg-secondary position-absolute top-0 start-0 m-2">Blog Post</span>
                             </a>
                             <div class="card-body">
                                 <a href="<?php the_permalink(); ?>">
@@ -255,7 +253,6 @@
                                         esc_attr(get_the_title()) .
                                         '" />';
                                 } ?>
-                                <span class="badge bg-info position-absolute top-0 start-0 m-2">Page</span>
                             </a>
                             <div class="card-body">
                                 <a href="<?php the_permalink(); ?>">
@@ -295,7 +292,8 @@
                 </div>
 
                 <?php // Pagination
-                if (have_posts()):
+
+if (have_posts()):
                     echo '<div class="row mt-4"><div class="col-12">';
                     the_posts_pagination([
                         "mid_size" => 2,
