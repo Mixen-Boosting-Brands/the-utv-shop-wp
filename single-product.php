@@ -21,24 +21,18 @@
     </div>
 </section>
 
+<?php while (have_posts()):
+
+    the_post();
+    global $product;
+    ?>
+
 <section id="jumbotron">
     <div class="container">
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
             <div class="col">
                 <h1 class="big-heading text-uppercase">
-                    <?php if (function_exists("is_woocommerce")) {
-                        if (is_cart()) {
-                            echo "Carrito de Compras";
-                        } elseif (is_checkout()) {
-                            echo "Finalizar Compra";
-                        } elseif (is_account_page()) {
-                            echo "Mi Cuenta";
-                        } else {
-                            the_title();
-                        }
-                    } else {
-                        echo "Power your ride";
-                    } ?>
+                    <?php the_title(); ?>
                 </h1>
             </div>
         </div>
@@ -56,76 +50,189 @@
             <div class="col-12">
                 <div class="row mb-4">
                     <div class="col-lg-6">
-                        <a
-                            href="#"
-                            target="_blank"
-                            class="rounded-corners img-zoom-container"
-                        >
-                            <img
-                                class="img-fluid"
-                                src="<?php echo esc_url(
-                                    get_template_directory_uri(),
-                                ); ?>/assets/images/thumb-belt.png"
-                                alt="EVP Alpha Drive Belts for Can-Am Maverick X3"
-                            />
-                        </a>
+                        <div class="rounded-corners img-zoom-container">
+                            <?php if (has_post_thumbnail()) {
+                                the_post_thumbnail("large", [
+                                    "class" => "img-fluid",
+                                ]);
+                            } else {
+                                echo '<img class="img-fluid" src="' .
+                                    wc_placeholder_img_src() .
+                                    '" alt="' .
+                                    esc_attr(get_the_title()) .
+                                    '" />';
+                            } ?>
+                        </div>
+
+                        <?php
+                        // Product image gallery
+                        $attachment_ids = $product->get_gallery_image_ids();
+                        if ($attachment_ids) {
+                            echo '<div class="product-gallery mt-3">';
+                            foreach ($attachment_ids as $attachment_id) {
+                                echo '<a href="' .
+                                    esc_url(
+                                        wp_get_attachment_url($attachment_id),
+                                    ) .
+                                    '" class="rounded-corners img-zoom-container d-inline-block me-2 mb-2" style="width: 100px;">';
+                                echo wp_get_attachment_image(
+                                    $attachment_id,
+                                    "thumbnail",
+                                    false,
+                                    ["class" => "img-fluid"],
+                                );
+                                echo "</a>";
+                            }
+                            echo "</div>";
+                        }
+                        ?>
                     </div>
                     <div class="col-lg-6">
-                        <h1>
-                            EVP Alpha Drive Belts for Can-Am Maverick X3
-                        </h1>
-                        <p class="price fw-bold">$1,111</p>
-                        <p>
-                            Lorem, ipsum dolor sit amet consectetur
-                            adipisicing elit. Nisi aperiam sed
-                            cupiditate dignissimos id magni laudantium
-                            facere nostrum. Fugiat veniam porro odit
-                            corporis nam! Magni nulla nemo
-                            exercitationem laudantium velit.
+                        <h1><?php the_title(); ?></h1>
+
+                        <p class="price fw-bold">
+                            <?php echo $product->get_price_html(); ?>
                         </p>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit.
-                        </p>
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a
-                                    class="btn btn-secondary rounded-pill"
-                                    href="#"
-                                >
-                                    <i class="fas fa-shopping-cart"></i>
-                                    Add to Cart
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a
-                                    class="btn btn-primary rounded-pill"
-                                    href="#"
-                                >
-                                    <i class="fas fa-shopping-cart"></i>
-                                    Buy Now
-                                </a>
-                            </li>
-                        </ul>
+
+                        <div class="product-short-description">
+                            <?php echo $product->get_short_description(); ?>
+                        </div>
+
+                        <?php if ($product->is_in_stock()): ?>
+                            <form class="cart" action="<?php echo esc_url(
+                                apply_filters(
+                                    "woocommerce_add_to_cart_form_action",
+                                    $product->get_permalink(),
+                                ),
+                            ); ?>" method="post" enctype='multipart/form-data'>
+
+                                <?php do_action(
+                                    "woocommerce_before_add_to_cart_button",
+                                ); ?>
+
+                                <?php if (!$product->is_sold_individually()): ?>
+                                    <div class="quantity mb-3">
+                                        <label class="form-label" for="quantity">Quantity:</label>
+                                        <?php woocommerce_quantity_input([
+                                            "min_value" => apply_filters(
+                                                "woocommerce_quantity_input_min",
+                                                $product->get_min_purchase_quantity(),
+                                                $product,
+                                            ),
+                                            "max_value" => apply_filters(
+                                                "woocommerce_quantity_input_max",
+                                                $product->get_max_purchase_quantity(),
+                                                $product,
+                                            ),
+                                            "input_value" => isset(
+                                                $_POST["quantity"],
+                                            )
+                                                ? wc_stock_amount(
+                                                    wp_unslash(
+                                                        $_POST["quantity"],
+                                                    ),
+                                                )
+                                                : $product->get_min_purchase_quantity(),
+                                        ]); ?>
+                                    </div>
+                                <?php endif; ?>
+
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <button type="submit" name="add-to-cart" value="<?php echo esc_attr(
+                                            $product->get_id(),
+                                        ); ?>" class="btn btn-secondary rounded-pill single_add_to_cart_button">
+                                            <i class="fas fa-shopping-cart"></i>
+                                            <?php echo esc_html(
+                                                $product->single_add_to_cart_text(),
+                                            ); ?>
+                                        </button>
+                                    </li>
+                                </ul>
+
+                                <?php do_action(
+                                    "woocommerce_after_add_to_cart_button",
+                                ); ?>
+                            </form>
+                        <?php else: ?>
+                            <p class="stock out-of-stock">
+                                <span class="badge bg-danger">Out of Stock</span>
+                            </p>
+                        <?php endif; ?>
+
+                        <?php do_action("woocommerce_product_meta_start"); ?>
+
+                        <div class="product_meta mt-4">
+                            <?php if (
+                                wc_product_sku_enabled() &&
+                                ($product->get_sku() ||
+                                    $product->is_type("variable"))
+                            ): ?>
+                                <span class="sku_wrapper">
+                                    <strong>SKU:</strong>
+                                    <span class="sku"><?php echo ($sku = $product->get_sku())
+                                        ? $sku
+                                        : esc_html__(
+                                            "N/A",
+                                            "woocommerce",
+                                        ); ?></span>
+                                </span>
+                            <?php endif; ?>
+
+                            <?php echo wc_get_product_category_list(
+                                $product->get_id(),
+                                ", ",
+                                '<span class="posted_in d-block mt-2"><strong>' .
+                                    _n(
+                                        "Categoría:",
+                                        "Categorías:",
+                                        count($product->get_category_ids()),
+                                        "woocommerce",
+                                    ) .
+                                    "</strong> ",
+                                "</span>",
+                            ); ?>
+
+                            <?php echo wc_get_product_tag_list(
+                                $product->get_id(),
+                                ", ",
+                                '<span class="tagged_as d-block mt-2"><strong>' .
+                                    _n(
+                                        "Etiqueta:",
+                                        "Etiquetas:",
+                                        count($product->get_tag_ids()),
+                                        "woocommerce",
+                                    ) .
+                                    "</strong> ",
+                                "</span>",
+                            ); ?>
+                        </div>
+
+                        <?php do_action("woocommerce_product_meta_end"); ?>
                     </div>
                 </div>
+
+                <?php if ($product->get_description()): ?>
                 <div class="row">
                     <div class="col-12">
                         <h5>Product Info</h5>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. Dignissimos, delectus
-                            molestias? Ea similique fugiat doloremque
-                            accusamus praesentium ab libero mollitia
-                            quos, dolorum voluptatibus exercitationem
-                            assumenda sequi quas veritatis natus eum!
-                        </p>
+                        <div class="product-description">
+                            <?php echo $product->get_description(); ?>
+                        </div>
                     </div>
                 </div>
+                <?php endif; ?>
+
+                <?php // Reviews / Comments
+
+    comments_template(); ?>
             </div>
         </div>
     </div>
 </section>
+
+<?php
+endwhile; ?>
 
 <section id="marquee-secondary" class="marquee">
     <div class="marquee-content">
@@ -156,147 +263,63 @@
                 <p>Chosen for peak performance.</p>
             </div>
             <div class="col-6 my-auto text-end">
-                <a
-                    class="btn btn-primary rounded-pill"
-                    href="#"
-                    target="_blank"
-                    >Shop now</a
-                >
+                <a class="btn btn-primary rounded-pill" href="<?php echo get_permalink(
+                    wc_get_page_id("shop"),
+                ); ?>">Shop now</a>
             </div>
         </div>
         <div class="row">
-            <div
-                class="col-6 col-lg-3"
-                data-aos="fade-up"
-                data-aos-duration="1200"
-            >
+            <?php
+            // Best sellers query
+            $args = [
+                "post_type" => "product",
+                "posts_per_page" => 4,
+                "meta_key" => "total_sales",
+                "orderby" => "meta_value_num",
+                "order" => "DESC",
+            ];
+
+            $bestsellers = new WP_Query($args);
+            $duration = 1200;
+
+            if ($bestsellers->have_posts()):
+                while ($bestsellers->have_posts()):
+
+                    $bestsellers->the_post();
+                    global $product;
+                    ?>
+            <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-duration="<?php echo $duration; ?>">
                 <div class="card">
-                    <a
-                        class="card-img-top-link rounded-corners img-zoom-container"
-                        href="#"
-                    >
-                        <img
-                            src="<?php echo esc_url(
-                                get_template_directory_uri(),
-                            ); ?>/assets/images/thumb-product.png"
-                            class="card-img-top"
-                            alt="EVP Number Plate Kit for Can-Am Maverick X3"
-                        />
+                    <a class="card-img-top-link rounded-corners img-zoom-container" href="<?php the_permalink(); ?>">
+                        <?php if (has_post_thumbnail()) {
+                            the_post_thumbnail("medium", [
+                                "class" => "card-img-top",
+                            ]);
+                        } else {
+                            echo '<img src="' .
+                                wc_placeholder_img_src() .
+                                '" class="card-img-top" alt="' .
+                                esc_attr(get_the_title()) .
+                                '" />';
+                        } ?>
                     </a>
                     <div class="card-body">
-                        <a href="#">
-                            <h5 class="card-title">
-                                EVP Number Plate Kit for Can-Am Maverick
-                                X3
-                            </h5>
+                        <a href="<?php the_permalink(); ?>">
+                            <h5 class="card-title"><?php the_title(); ?></h5>
                         </a>
-                        <p class="card-text">
-                            Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit.
-                        </p>
-                        <p class="price fw-bold">$1,111</p>
+                        <p class="card-text"><?php echo wp_trim_words(
+                            get_the_excerpt(),
+                            15,
+                        ); ?></p>
+                        <p class="price fw-bold"><?php echo $product->get_price_html(); ?></p>
                     </div>
                 </div>
             </div>
-            <div
-                class="col-6 col-lg-3"
-                data-aos="fade-up"
-                data-aos-duration="1400"
-            >
-                <div class="card">
-                    <a
-                        class="card-img-top-link rounded-corners img-zoom-container"
-                        href="#"
-                    >
-                        <img
-                            src="<?php echo esc_url(
-                                get_template_directory_uri(),
-                            ); ?>/assets/images/thumb-product.png"
-                            class="card-img-top"
-                            alt="EVP Number Plate Kit for Can-Am Maverick X3"
-                        />
-                    </a>
-                    <div class="card-body">
-                        <a href="#">
-                            <h5 class="card-title">
-                                EVP Number Plate Kit for Can-Am Maverick
-                                X3
-                            </h5>
-                        </a>
-                        <p class="card-text">
-                            Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit.
-                        </p>
-                        <p class="price fw-bold">$1,111</p>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="col-6 col-lg-3"
-                data-aos="fade-up"
-                data-aos-duration="1600"
-            >
-                <div class="card">
-                    <a
-                        class="card-img-top-link rounded-corners img-zoom-container"
-                        href="#"
-                    >
-                        <img
-                            src="<?php echo esc_url(
-                                get_template_directory_uri(),
-                            ); ?>/assets/images/thumb-product.png"
-                            class="card-img-top"
-                            alt="EVP Number Plate Kit for Can-Am Maverick X3"
-                        />
-                    </a>
-                    <div class="card-body">
-                        <a href="#">
-                            <h5 class="card-title">
-                                EVP Number Plate Kit for Can-Am Maverick
-                                X3
-                            </h5>
-                        </a>
-                        <p class="card-text">
-                            Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit.
-                        </p>
-                        <p class="price fw-bold">$1,111</p>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="col-6 col-lg-3"
-                data-aos="fade-up"
-                data-aos-duration="1800"
-            >
-                <div class="card">
-                    <a
-                        class="card-img-top-link rounded-corners img-zoom-container"
-                        href="#"
-                    >
-                        <img
-                            src="<?php echo esc_url(
-                                get_template_directory_uri(),
-                            ); ?>/assets/images/thumb-product.png"
-                            class="card-img-top"
-                            alt="EVP Number Plate Kit for Can-Am Maverick X3"
-                        />
-                    </a>
-                    <div class="card-body">
-                        <a href="#">
-                            <h5 class="card-title">
-                                EVP Number Plate Kit for Can-Am Maverick
-                                X3
-                            </h5>
-                        </a>
-                        <p class="card-text">
-                            Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit.
-                        </p>
-                        <p class="price fw-bold">$1,111</p>
-                    </div>
-                </div>
-            </div>
+            <?php $duration += 200;
+                endwhile;
+                wp_reset_postdata();
+            endif;
+            ?>
         </div>
     </div>
 </section>
@@ -306,160 +329,59 @@
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
             <div class="col-12">
                 <h1>Off-Road Updates</h1>
-                <p>
-                    Race reports, tuning guides and rider inspiration.
-                </p>
+                <p>Race reports, tuning guides and rider inspiration.</p>
             </div>
         </div>
         <div class="row">
-            <div
-                class="col-6 col-lg-3"
-                data-aos="fade-up"
-                data-aos-duration="1200"
-            >
+            <?php
+            // Latest blog posts query
+            $args = [
+                "post_type" => "post",
+                "posts_per_page" => 4,
+                "orderby" => "date",
+                "order" => "DESC",
+            ];
+
+            $recent_posts = new WP_Query($args);
+            $duration = 1200;
+
+            if ($recent_posts->have_posts()):
+                while ($recent_posts->have_posts()):
+                    $recent_posts->the_post(); ?>
+            <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-duration="<?php echo $duration; ?>">
                 <div class="card">
-                    <a
-                        class="card-img-top-link rounded-corners img-zoom-container"
-                        href="#"
-                    >
-                        <span
-                            class="badge text-bg-primary rounded-circle rounded-badge"
-                        >
+                    <a class="card-img-top-link rounded-corners img-zoom-container" href="<?php the_permalink(); ?>">
+                        <span class="badge text-bg-primary rounded-circle rounded-badge">
                             <i class="fa-solid fa-arrow-right-long"></i>
                         </span>
-                        <img
-                            src="<?php echo esc_url(
-                                get_template_directory_uri(),
-                            ); ?>/assets/images/thumb-product-tall.png"
-                            class="card-img-top"
-                            alt="EVP Number Plate Kit for Can-Am Maverick X3"
-                        />
+                        <?php if (has_post_thumbnail()) {
+                            the_post_thumbnail("medium", [
+                                "class" => "card-img-top",
+                            ]);
+                        } else {
+                            echo '<img src="' .
+                                esc_url(get_template_directory_uri()) .
+                                '/assets/images/thumb-product-tall.png" class="card-img-top" alt="' .
+                                esc_attr(get_the_title()) .
+                                '" />';
+                        } ?>
                     </a>
                     <div class="card-body">
-                        <a href="#">
-                            <h5 class="card-title">
-                                EVP Number Plate Kit for Can-Am Maverick
-                                X3
-                            </h5>
+                        <a href="<?php the_permalink(); ?>">
+                            <h5 class="card-title"><?php the_title(); ?></h5>
                         </a>
-                        <p class="card-text">
-                            Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit.
-                        </p>
+                        <p class="card-text"><?php echo wp_trim_words(
+                            get_the_excerpt(),
+                            15,
+                        ); ?></p>
                     </div>
                 </div>
             </div>
-            <div
-                class="col-6 col-lg-3"
-                data-aos="fade-up"
-                data-aos-duration="1400"
-            >
-                <div class="card">
-                    <a
-                        class="card-img-top-link rounded-corners img-zoom-container"
-                        href="#"
-                    >
-                        <span
-                            class="badge text-bg-primary rounded-circle rounded-badge"
-                        >
-                            <i class="fa-solid fa-arrow-right-long"></i>
-                        </span>
-                        <img
-                            src="<?php echo esc_url(
-                                get_template_directory_uri(),
-                            ); ?>/assets/images/thumb-product-tall.png"
-                            class="card-img-top"
-                            alt="EVP Number Plate Kit for Can-Am Maverick X3"
-                        />
-                    </a>
-                    <div class="card-body">
-                        <a href="#">
-                            <h5 class="card-title">
-                                EVP Number Plate Kit for Can-Am Maverick
-                                X3
-                            </h5>
-                        </a>
-                        <p class="card-text">
-                            Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="col-6 col-lg-3"
-                data-aos="fade-up"
-                data-aos-duration="1600"
-            >
-                <div class="card">
-                    <a
-                        class="card-img-top-link rounded-corners img-zoom-container"
-                        href="#"
-                    >
-                        <span
-                            class="badge text-bg-primary rounded-circle rounded-badge"
-                        >
-                            <i class="fa-solid fa-arrow-right-long"></i>
-                        </span>
-                        <img
-                            src="<?php echo esc_url(
-                                get_template_directory_uri(),
-                            ); ?>/assets/images/thumb-product-tall.png"
-                            class="card-img-top"
-                            alt="EVP Number Plate Kit for Can-Am Maverick X3"
-                        />
-                    </a>
-                    <div class="card-body">
-                        <a href="#">
-                            <h5 class="card-title">
-                                EVP Number Plate Kit for Can-Am Maverick
-                                X3
-                            </h5>
-                        </a>
-                        <p class="card-text">
-                            Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="col-6 col-lg-3"
-                data-aos="fade-up"
-                data-aos-duration="1800"
-            >
-                <div class="card">
-                    <a
-                        class="card-img-top-link rounded-corners img-zoom-container"
-                        href="#"
-                    >
-                        <span
-                            class="badge text-bg-primary rounded-circle rounded-badge"
-                        >
-                            <i class="fa-solid fa-arrow-right-long"></i>
-                        </span>
-                        <img
-                            src="<?php echo esc_url(
-                                get_template_directory_uri(),
-                            ); ?>/assets/images/thumb-product-tall.png"
-                            class="card-img-top"
-                            alt="EVP Number Plate Kit for Can-Am Maverick X3"
-                        />
-                    </a>
-                    <div class="card-body">
-                        <a href="#">
-                            <h5 class="card-title">
-                                EVP Number Plate Kit for Can-Am Maverick
-                                X3
-                            </h5>
-                        </a>
-                        <p class="card-text">
-                            Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <?php $duration += 200;
+                endwhile;
+                wp_reset_postdata();
+            endif;
+            ?>
         </div>
     </div>
 </section>
