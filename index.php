@@ -86,16 +86,20 @@
                 data-aos="fade-up"
                 data-aos-duration="2100"
             >
-                <h2 class="text-uppercase">Our Story</h2>
+                <h2 class="text-uppercase"><?php echo get_the_title(19); ?></h2>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing
                     elit. Sed euismod, nisl vel aliquam aliquet, nisl
                     nisl aliquet nisl, vel aliquet nisl nisl vel aliquet
                     nisl.
                 </p>
-                <a href="#" class="btn btn-primary rounded-pill"
-                    >Learn More</a
-                >
+                <?php if (get_post_status(19)): ?>
+                <a href="<?php echo get_permalink(
+                    19,
+                ); ?>" class="btn btn-primary rounded-pill">
+                    Learn More
+                </a>
+                <?php endif; ?>
             </div>
         </div>
     </div>
