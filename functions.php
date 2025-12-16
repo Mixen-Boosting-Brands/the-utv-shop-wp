@@ -433,7 +433,8 @@ function html5blankcomments($comment, $args, $depth)
 } /*------------------------------------*\
     Actions + Filters + ShortCodes
 \*------------------------------------*/ // Add Actions
-add_action("wp_enqueue_scripts", "html5blank_header_scripts"); // Add Custom Scripts to wp_head
+add_action("wp_enqueue_scripts", "html5blank_header_scripts");
+// Add Custom Scripts to wp_head
 add_action("wp_print_scripts", "html5blank_conditional_scripts"); // Add Conditional Page Scripts
 add_action("get_header", "enable_threaded_comments"); // Enable Threaded Comments
 add_action("wp_enqueue_scripts", "html5blank_styles"); // Add Theme Stylesheet
@@ -448,12 +449,12 @@ remove_action("wp_head", "rsd_link"); // Display the link to the Really Simple D
 remove_action("wp_head", "wlwmanifest_link"); // Display the link to the Windows Live Writer manifest file.
 remove_action("wp_head", "wp_generator"); // Display the XHTML generator that is generated on the wp_head hook, WP version
 remove_action("wp_head", "rel_canonical");
-remove_action("wp_head", "wp_shortlink_wp_head", 10, 0);
-// Add Filters
+remove_action("wp_head", "wp_shortlink_wp_head", 10, 0); // Add Filters
 add_filter("avatar_defaults", "html5blankgravatar"); // Custom Gravatar in Settings > Discussion
 add_filter("body_class", "add_slug_to_body_class"); // Add slug to body class (Starkers build)
 add_filter("widget_text", "do_shortcode"); // Allow shortcodes in Dynamic Sidebar
-add_filter("widget_text", "shortcode_unautop"); // Remove <p> tags in Dynamic Sidebars (better!)
+add_filter("widget_text", "shortcode_unautop");
+// Remove <p> tags in Dynamic Sidebars (better!)
 add_filter("wp_nav_menu_args", "my_wp_nav_menu_args"); // Remove surrounding <div> from WP Navigation
 // add_filter( 'nav_menu_css_class', 'my_css_attributes_filter', 100, 1 ); // Remove Navigation <li> injected classes (Commented out by default)
 // add_filter( 'nav_menu_item_id', 'my_css_attributes_filter', 100, 1 ); // Remove Navigation <li> injected ID (Commented out by default)
@@ -462,7 +463,8 @@ add_filter("the_category", "remove_category_rel_from_category_list"); // Remove 
 add_filter("the_excerpt", "shortcode_unautop"); // Remove auto <p> tags in Excerpt (Manual Excerpts only)
 add_filter("the_excerpt", "do_shortcode"); // Allows Shortcodes to be executed in Excerpt (Manual Excerpts only)
 add_filter("excerpt_more", "html5_blank_view_article"); // Add 'View Article' button instead of [...] for Excerpts
-add_filter("show_admin_bar", "remove_admin_bar"); // Remove Admin bar
+add_filter("show_admin_bar", "remove_admin_bar");
+// Remove Admin bar
 add_filter("style_loader_tag", "html5_style_remove"); // Remove 'text/css' from enqueued stylesheet
 add_filter("post_thumbnail_html", "remove_thumbnail_dimensions", 10); // Remove width and height dynamic attributes to thumbnails
 add_filter("post_thumbnail_html", "remove_width_attribute", 10); // Remove width and height dynamic attributes to post images
@@ -537,8 +539,7 @@ function create_post_type_html5()
     );
 } /*------------------------------------*\
     ShortCode Functions
-\*------------------------------------*/
-// Shortcode Demo with Nested Capability
+\*------------------------------------*/ // Shortcode Demo with Nested Capability
 function html5_shortcode_demo($atts, $content = null)
 {
     return '<div class="shortcode-demo">' . do_shortcode($content) . "</div>"; // do_shortcode allows for nested Shortcodes
@@ -586,8 +587,7 @@ function bootstrap_pagination(
     $add_args = []; //add query (GET) parameters to generated page URLs
     /*if (isset($_GET[ 'sort' ])) {
         $add_args[ 'sort' ] = (string)$_GET[ 'sort' ];
-    }*/
-    $pages = paginate_links(
+    }*/ $pages = paginate_links(
         array_merge(
             [
                 "base" => str_replace(
@@ -631,6 +631,70 @@ function bootstrap_pagination(
         }
     }
     return null;
+}
+// Breadcrumbs
+function get_custom_breadcrumb()
+{
+    // Don't show on homepage
+    if (is_front_page()) {
+        return;
+    }
+    $breadcrumb =
+        '<nav style="--bs-breadcrumb-divider: \'>\'" aria-label="breadcrumb">';
+    $breadcrumb .= '<ol class="breadcrumb">'; // Home link
+    $breadcrumb .=
+        '<li class="breadcrumb-item"><a href="' .
+        home_url("/") .
+        '">Home</a></li>';
+    // For WooCommerce products
+    if (is_singular("product")) {
+        $product_id = get_the_ID();
+        $terms = get_the_terms($product_id, "product_cat");
+        // Show product category
+        if ($terms && !is_wp_error($terms)) {
+            $term = array_shift($terms);
+            $breadcrumb .=
+                '<li class="breadcrumb-item"><a href="' .
+                get_term_link($term) .
+                '">' .
+                $term->name .
+                "</a></li>";
+        } // Current product
+        $breadcrumb .=
+            '<li class="breadcrumb-item active">' . get_the_title() . "</li>";
+    }
+    // For blog posts
+    elseif (is_single()) {
+        $category = get_the_category();
+        if ($category) {
+            $breadcrumb .=
+                '<li class="breadcrumb-item"><a href="' .
+                get_category_link($category[0]->term_id) .
+                '">' .
+                $category[0]->name .
+                "</a></li>";
+        }
+        $breadcrumb .=
+            '<li class="breadcrumb-item active">' . get_the_title() . "</li>";
+    }
+    // For pages
+    elseif (is_page()) {
+        $breadcrumb .=
+            '<li class="breadcrumb-item active">' . get_the_title() . "</li>";
+    }
+    // For categories
+    elseif (is_category()) {
+        $breadcrumb .=
+            '<li class="breadcrumb-item active">' .
+            single_cat_title("", false) .
+            "</li>";
+    }
+    // For blog archives
+    elseif (is_home()) {
+        $breadcrumb .= '<li class="breadcrumb-item active">Blog</li>';
+    }
+    $breadcrumb .= "</ol></nav>";
+    return $breadcrumb;
 } // WooCommerce support
 function my_theme_add_woocommerce_support()
 {
