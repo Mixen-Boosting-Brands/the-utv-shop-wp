@@ -2,15 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5737.734251150566!2d-106.49281868736671!3d31.76191483505824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86e758fdee20fdc5%3A0xe78c631c77d5997!2sHUB%20International!5e1!3m2!1sen!2smx!4v1764869033420!5m2!1sen!2smx"
-                    width="100%"
-                    height="450"
-                    style="border: 0"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3390.27632456575!2d-106.18290268723648!3d31.817467173971362!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86e7479836ce9de3%3A0x2126ab9d484587e7!2s14350%20Montana%20Ave%2C%20Clint%2C%20TX%2079836%2C%20EE.%20UU.!5e0!3m2!1ses-419!2smx!4v1766439626046!5m2!1ses-419!2smx" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>
@@ -83,8 +75,8 @@
                     <div class="col-6 col-lg-4">
                         <p><strong>Contact Us</strong></p>
                         <address>
-                            500 Terry Francine St.<br />
-                            El Paso, TX 79952<br />
+                            14350 Montana Ave<br />
+                            El Paso, TX 79938<br />
                             <a href="tel:+19151234567">(915) 123-4567</a
                             ><br />
                             <a href="mailto:info@theutv.com"
