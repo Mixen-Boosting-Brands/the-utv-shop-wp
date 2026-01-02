@@ -274,13 +274,13 @@ endwhile; ?>
                 <div class="card">
                     <a class="card-img-top-link rounded-corners img-zoom-container" href="<?php the_permalink(); ?>">
                         <?php if (has_post_thumbnail()) {
-                            the_post_thumbnail("medium", [
+                            the_post_thumbnail("thumb-blog", [
                                 "class" => "card-img-top",
                             ]);
                         } else {
                             echo '<img src="' .
-                                wc_placeholder_img_src() .
-                                '" class="card-img-top" alt="' .
+                                esc_url(get_template_directory_uri()) .
+                                '/assets/images/thumb-product-tall.png" class="card-img-top" alt="' .
                                 esc_attr(get_the_title()) .
                                 '" />';
                         } ?>
