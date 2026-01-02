@@ -111,9 +111,9 @@ if (is_product_category()) {
                         } ?>
                     </div>
 
-                    <?php if (woocommerce_product_loop()):
-                        woocommerce_product_loop_start();
+                    <?php if (woocommerce_product_loop()): ?>
 
+                        <?php
                         $duration = 1800;
 
                         if (wc_get_loop_prop("total")):
@@ -123,65 +123,77 @@ if (is_product_category()) {
                                 global $product;
                                 ?>
 
-                    <div class="col-6 col-lg-4" data-aos="fade-up" data-aos-duration="<?php echo $duration; ?>">
-                        <div class="card">
-                            <a class="card-img-top-link rounded-corners img-zoom-container" href="<?php the_permalink(); ?>">
-                                <?php if (has_post_thumbnail()) {
-                                    the_post_thumbnail("medium", [
-                                        "class" => "card-img-top",
-                                    ]);
-                                } else {
-                                    echo '<img src="' .
-                                        wc_placeholder_img_src() .
-                                        '" class="card-img-top" alt="' .
-                                        esc_attr(get_the_title()) .
-                                        '" />';
-                                } ?>
-                            </a>
-                            <div class="card-body">
-                                <a href="<?php the_permalink(); ?>">
-                                    <h5 class="card-title"><?php the_title(); ?></h5>
-                                </a>
-                                <p class="card-text"><?php echo wp_trim_words(
-                                    get_the_excerpt(),
-                                    15,
-                                ); ?></p>
-                                <p class="price fw-bold"><?php echo $product->get_price_html(); ?></p>
-
-                                <?php if ($product->is_in_stock()): ?>
-                                    <a href="<?php echo esc_url(
-                                        $product->add_to_cart_url(),
-                                    ); ?>"
-                                       data-quantity="1"
-                                       class="btn btn-primary rounded-pill ajax_add_to_cart add_to_cart_button"
-                                       data-product_id="<?php echo $product->get_id(); ?>"
-                                       data-product_sku="<?php echo esc_attr(
-                                           $product->get_sku(),
-                                       ); ?>"
-                                       aria-label="<?php echo esc_attr(
-                                           $product->add_to_cart_description(),
-                                       ); ?>"
-                                       rel="nofollow">
-                                        <i class="fas fa-shopping-cart"></i>
-                                        <?php echo esc_html(
-                                            $product->add_to_cart_text(),
-                                        ); ?>
+                            <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="<?php echo esc_attr(
+                                $duration,
+                            ); ?>">
+                                <div class="card h-100">
+                                    <a class="card-img-top-link rounded-corners img-zoom-container" href="<?php the_permalink(); ?>">
+                                        <?php if (has_post_thumbnail()):
+                                            the_post_thumbnail("thumb-square", [
+                                                "class" => "card-img-top",
+                                            ]);
+                                        else:
+                                             ?>
+                                            <img src="<?php echo esc_url(
+                                                wc_placeholder_img_src(),
+                                            ); ?>"
+                                                 class="card-img-top"
+                                                 alt="<?php echo esc_attr(
+                                                     get_the_title(),
+                                                 ); ?>">
+                                        <?php
+                                        endif; ?>
                                     </a>
-                                <?php else: ?>
-                                    <span class="badge bg-danger">Out of Stock</span>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
 
-                    <?php $duration += 200;
+                                    <div class="card-body d-flex flex-column">
+                                        <a href="<?php the_permalink(); ?>">
+                                            <h5 class="card-title"><?php the_title(); ?></h5>
+                                        </a>
+
+                                        <p class="card-text">
+                                            <?php echo wp_trim_words(
+                                                get_the_excerpt(),
+                                                15,
+                                            ); ?>
+                                        </p>
+
+                                        <p class="price fw-bold mt-auto">
+                                            <?php echo $product->get_price_html(); ?>
+                                        </p>
+
+                                        <?php if ($product->is_in_stock()): ?>
+                                            <a href="<?php echo esc_url(
+                                                $product->add_to_cart_url(),
+                                            ); ?>"
+                                               data-quantity="1"
+                                               class="btn btn-primary rounded-pill ajax_add_to_cart add_to_cart_button mt-2"
+                                               data-product_id="<?php echo esc_attr(
+                                                   $product->get_id(),
+                                               ); ?>"
+                                               data-product_sku="<?php echo esc_attr(
+                                                   $product->get_sku(),
+                                               ); ?>"
+                                               rel="nofollow">
+                                                <i class="fas fa-shopping-cart"></i>
+                                                <?php echo esc_html(
+                                                    $product->add_to_cart_text(),
+                                                ); ?>
+                                            </a>
+                                        <?php else: ?>
+                                            <span class="badge bg-danger mt-2">Out of Stock</span>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <?php $duration += 200;
                             endwhile;
                         endif;
+                        ?>
 
-                        woocommerce_product_loop_end();
-                    else:
-                        echo '<div class="col-12"><p>No products found.</p></div>';
-                    endif; ?>
+                    <?php else: ?>
+                        <div class="col-12"><p>No products found.</p></div>
+                    <?php endif; ?>
                 </div>
 
                 <?php // Paginación
