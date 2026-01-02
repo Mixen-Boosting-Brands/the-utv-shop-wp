@@ -23,15 +23,44 @@
 
 <section id="jumbotron">
     <div class="container">
+        <?php
+        $vehicle_model_name = "";
+
+        if (!empty($_GET["filter_vehicle-model"])) {
+            $vehicle_slug = sanitize_text_field(
+                wp_unslash($_GET["filter_vehicle-model"]),
+            );
+            $vehicle_term = get_term_by(
+                "slug",
+                $vehicle_slug,
+                "pa_vehicle-model",
+            );
+
+            if ($vehicle_term && !is_wp_error($vehicle_term)) {
+                $vehicle_model_name = $vehicle_term->name;
+            }
+        }
+        ?>
+
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
             <div class="col">
                 <h1 class="big-heading text-uppercase">
-                    <?php if (is_shop()) {
-                        echo "Fuel your next journey";
+                    <?php if (is_shop() && $vehicle_model_name) {
+                        echo esc_html($vehicle_model_name . " Parts");
+                    } elseif (is_shop()) {
+                        echo esc_html__(
+                            "Fuel your next journey",
+                            "your-textdomain",
+                        );
                     } elseif (is_product_category()) {
                         single_term_title();
+                        if ($vehicle_model_name) {
+                            echo ' <span class="text-muted">for ' .
+                                esc_html($vehicle_model_name) .
+                                "</span>";
+                        }
                     } elseif (is_product_tag()) {
-                        echo "Tag: ";
+                        echo esc_html__("Tag: ", "your-textdomain");
                         single_term_title();
                     } else {
                         woocommerce_page_title();
@@ -39,6 +68,7 @@
                 </h1>
             </div>
         </div>
+
         <div class="row" data-aos="fade-up" data-aos-duration="1200">
             <div class="col-12">
                 <?php echo get_custom_breadcrumb(); ?>
