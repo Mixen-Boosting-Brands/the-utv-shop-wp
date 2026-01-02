@@ -50,6 +50,7 @@
 <section class="pb-30">
     <div class="container">
         <div class="row">
+            <!-- Sidebar -->
             <div class="col-lg-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-duration="1400">
                 <h5>Categories</h5>
                 <div class="list-group list-group-flush">
@@ -70,13 +71,17 @@
                             )
                                 ? "active"
                                 : ""; ?>
-                        <a href="<?php echo get_term_link($category); ?>"
-                           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0 <?php echo $current_class; ?>">
-                            <span><?php echo esc_html(
-                                $category->name,
-                            ); ?></span>
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </a>
+                            <a href="<?php echo esc_url(
+                                get_term_link($category),
+                            ); ?>"
+                               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0 <?php echo esc_attr(
+                                   $current_class,
+                               ); ?>">
+                                <span><?php echo esc_html(
+                                    $category->name,
+                                ); ?></span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </a>
                     <?php
                         endforeach;
                     endif;
@@ -84,33 +89,37 @@
                 </div>
             </div>
 
+            <!-- Products -->
             <div class="col-lg-9">
                 <div class="row">
+                    <!-- Header -->
                     <div class="col-12 mb-4" data-aos="fade-up" data-aos-duration="1600">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h2>
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                            <h2 class="mb-0">
                                 <?php if (is_product_category()) {
                                     single_term_title();
                                 } else {
-                                    echo "All Products";
+                                    echo esc_html__(
+                                        "All Products",
+                                        "your-textdomain",
+                                    );
                                 } ?>
                             </h2>
 
                             <?php woocommerce_catalog_ordering(); ?>
                         </div>
 
-                        <?php // Show category description if it exists
-
-if (is_product_category()) {
+                        <?php if (is_product_category()) {
                             $term = get_queried_object();
-                            if ($term->description) {
-                                echo '<p class="category-description">' .
-                                    $term->description .
+                            if (!empty($term->description)) {
+                                echo '<p class="category-description mt-2">' .
+                                    wp_kses_post($term->description) .
                                     "</p>";
                             }
                         } ?>
                     </div>
 
+                    <!-- Product Loop -->
                     <?php if (woocommerce_product_loop()): ?>
 
                         <?php
@@ -123,68 +132,78 @@ if (is_product_category()) {
                                 global $product;
                                 ?>
 
-                            <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="<?php echo esc_attr(
-                                $duration,
-                            ); ?>">
-                                <div class="card h-100">
-                                    <a class="card-img-top-link rounded-corners img-zoom-container" href="<?php the_permalink(); ?>">
-                                        <?php if (has_post_thumbnail()):
-                                            the_post_thumbnail("thumb-square", [
-                                                "class" => "card-img-top",
-                                            ]);
-                                        else:
-                                             ?>
-                                            <img src="<?php echo esc_url(
-                                                wc_placeholder_img_src(),
-                                            ); ?>"
-                                                 class="card-img-top"
-                                                 alt="<?php echo esc_attr(
-                                                     get_the_title(),
-                                                 ); ?>">
-                                        <?php
-                                        endif; ?>
-                                    </a>
-
-                                    <div class="card-body d-flex flex-column">
-                                        <a href="<?php the_permalink(); ?>">
-                                            <h5 class="card-title"><?php the_title(); ?></h5>
+                                <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="<?php echo esc_attr(
+                                    $duration,
+                                ); ?>">
+                                    <div class="card h-100">
+                                        <a class="card-img-top-link rounded-corners img-zoom-container" href="<?php the_permalink(); ?>">
+                                            <?php if (has_post_thumbnail()): ?>
+                                                <?php the_post_thumbnail(
+                                                    "thumb-square",
+                                                    ["class" => "card-img-top"],
+                                                ); ?>
+                                            <?php else: ?>
+                                                <img
+                                                    src="<?php echo esc_url(
+                                                        wc_placeholder_img_src(),
+                                                    ); ?>"
+                                                    class="card-img-top"
+                                                    alt="<?php echo esc_attr(
+                                                        get_the_title(),
+                                                    ); ?>">
+                                            <?php endif; ?>
                                         </a>
 
-                                        <p class="card-text">
-                                            <?php echo wp_trim_words(
-                                                get_the_excerpt(),
-                                                15,
-                                            ); ?>
-                                        </p>
-
-                                        <p class="price fw-bold mt-auto">
-                                            <?php echo $product->get_price_html(); ?>
-                                        </p>
-
-                                        <?php if ($product->is_in_stock()): ?>
-                                            <a href="<?php echo esc_url(
-                                                $product->add_to_cart_url(),
-                                            ); ?>"
-                                               data-quantity="1"
-                                               class="btn btn-primary rounded-pill ajax_add_to_cart add_to_cart_button mt-2"
-                                               data-product_id="<?php echo esc_attr(
-                                                   $product->get_id(),
-                                               ); ?>"
-                                               data-product_sku="<?php echo esc_attr(
-                                                   $product->get_sku(),
-                                               ); ?>"
-                                               rel="nofollow">
-                                                <i class="fas fa-shopping-cart"></i>
-                                                <?php echo esc_html(
-                                                    $product->add_to_cart_text(),
-                                                ); ?>
+                                        <div class="card-body d-flex flex-column">
+                                            <a href="<?php the_permalink(); ?>">
+                                                <h5 class="card-title"><?php the_title(); ?></h5>
                                             </a>
-                                        <?php else: ?>
-                                            <span class="badge bg-danger mt-2">Out of Stock</span>
-                                        <?php endif; ?>
+
+                                            <p class="card-text">
+                                                <?php echo wp_trim_words(
+                                                    get_the_excerpt(),
+                                                    15,
+                                                ); ?>
+                                            </p>
+
+                                            <p class="price fw-bold mt-auto">
+                                                <?php echo $product->get_price_html(); ?>
+                                            </p>
+
+                                            <?php if (
+                                                $product->is_in_stock()
+                                            ): ?>
+                                                <a
+                                                    href="<?php echo esc_url(
+                                                        $product->add_to_cart_url(),
+                                                    ); ?>"
+                                                    data-quantity="1"
+                                                    class="btn btn-primary rounded-pill ajax_add_to_cart add_to_cart_button mt-2"
+                                                    data-product_id="<?php echo esc_attr(
+                                                        $product->get_id(),
+                                                    ); ?>"
+                                                    data-product_sku="<?php echo esc_attr(
+                                                        $product->get_sku(),
+                                                    ); ?>"
+                                                    aria-label="<?php echo esc_attr(
+                                                        $product->add_to_cart_description(),
+                                                    ); ?>"
+                                                    rel="nofollow"
+                                                >
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                    <?php echo esc_html(
+                                                        $product->add_to_cart_text(),
+                                                    ); ?>
+                                                </a>
+                                            <?php else: ?>
+                                                <span class="badge bg-danger mt-2"><?php esc_html_e(
+                                                    "Out of Stock",
+                                                    "your-textdomain",
+                                                ); ?></span>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
                         <?php $duration += 200;
                             endwhile;
@@ -192,17 +211,23 @@ if (is_product_category()) {
                         ?>
 
                     <?php else: ?>
-                        <div class="col-12"><p>No products found.</p></div>
+                        <div class="col-12">
+                            <p><?php esc_html_e(
+                                "No products found.",
+                                "your-textdomain",
+                            ); ?></p>
+                        </div>
                     <?php endif; ?>
                 </div>
 
-                <?php // Paginación
-
-if (woocommerce_product_loop()):
-                    echo '<div class="row mt-4"><div class="col-12">';
-                    woocommerce_pagination();
-                    echo "</div></div>";
-                endif; ?>
+                <!-- Pagination -->
+                <?php if (woocommerce_product_loop()): ?>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <?php woocommerce_pagination(); ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
