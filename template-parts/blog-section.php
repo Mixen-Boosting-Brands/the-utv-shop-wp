@@ -1,9 +1,18 @@
 <section class="pt-15 pb-30">
     <div class="container">
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
-            <div class="col-12">
+            <div class="col-6 my-auto">
                 <h1>Off-Road Updates</h1>
                 <p>Race reports, tuning guides and rider inspiration.</p>
+            </div>
+            <div class="col-6 my-auto text-end">
+                <a
+                    class="btn btn-primary rounded-pill"
+                    href="<?php echo esc_url(
+                        get_category_link(get_cat_ID("blog")),
+                    ); ?>"
+                    >Read more posts</a
+                >
             </div>
         </div>
         <div class="row">
@@ -28,7 +37,7 @@
                             <i class="fa-solid fa-arrow-right-long"></i>
                         </span>
                         <?php if (has_post_thumbnail()) {
-                            the_post_thumbnail("medium", [
+                            the_post_thumbnail("blog-thumb", [
                                 "class" => "card-img-top",
                             ]);
                         } else {
