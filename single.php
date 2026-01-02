@@ -89,7 +89,8 @@
                 </div>
 
                 <?php // Display post links for multi-page content
-                wp_link_pages([
+
+    wp_link_pages([
                     "before" =>
                         '<div class="page-links mt-4"><span class="page-links-title">Pages:</span>',
                     "after" => "</div>",
@@ -108,7 +109,7 @@
                             if ($prev_post): ?>
                             <a href="<?php echo get_permalink(
                                 $prev_post,
-                            ); ?>" class="btn btn-outline-primary rounded-pill">
+                            ); ?>" class="btn btn-primary rounded-pill">
                                 <i class="fa-solid fa-arrow-left"></i> Previous Post
                             </a>
                             <?php endif;
@@ -120,7 +121,7 @@
                             if ($next_post): ?>
                             <a href="<?php echo get_permalink(
                                 $next_post,
-                            ); ?>" class="btn btn-outline-primary rounded-pill">
+                            ); ?>" class="btn btn-primary rounded-pill">
                                 Next Post <i class="fa-solid fa-arrow-right"></i>
                             </a>
                             <?php endif;
@@ -128,12 +129,6 @@
                         </div>
                     </div>
                 </div>
-
-                <?php // Comments section
-
-    if (comments_open() || get_comments_number()):
-                    comments_template();
-                endif; ?>
             </div>
         </div>
     </div>
