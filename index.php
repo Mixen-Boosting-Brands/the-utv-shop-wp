@@ -109,13 +109,13 @@
     <div class="container">
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
             <div class="col-12">
-                <h1 class="text-uppercase">Featured Products</h1>
-                <p>Performance you can feel.</p>
+                <h1 class="text-uppercase">Featured Vehicles</h1>
+                <p>Browse parts and accessories for your vehicle.</p>
             </div>
         </div>
         <div class="row">
             <div
-                class="col-6 col-lg-4"
+                class="col-6 col-lg-3"
                 data-aos="fade-up"
                 data-aos-duration="1200"
             >
@@ -125,20 +125,20 @@
                         href="#"
                     >
                         <span class="badge text-bg-primary rounded-pill"
-                            >Alpha Belts</span
+                            >Can-Am Maverick R</span
                         >
                         <img
                             src="<?php echo esc_url(
                                 get_template_directory_uri(),
                             ); ?>/assets/images/thumb-product.png"
                             class="card-img-top"
-                            alt="EVP Number Plate Kit for Can-Am Maverick X3"
+                            alt="Can-Am Maverick R"
                         />
                     </a>
                 </div>
             </div>
             <div
-                class="col-6 col-lg-4"
+                class="col-6 col-lg-3"
                 data-aos="fade-up"
                 data-aos-duration="1400"
             >
@@ -148,20 +148,20 @@
                         href="#"
                     >
                         <span class="badge text-bg-primary rounded-pill"
-                            >Flex Fuel Tuning</span
+                            >Can-Am Maverick X3</span
                         >
                         <img
                             src="<?php echo esc_url(
                                 get_template_directory_uri(),
                             ); ?>/assets/images/thumb-product.png"
                             class="card-img-top"
-                            alt="EVP Number Plate Kit for Can-Am Maverick X3"
+                            alt="Can-Am Maverick R"
                         />
                     </a>
                 </div>
             </div>
             <div
-                class="col-6 col-lg-4"
+                class="col-6 col-lg-3"
                 data-aos="fade-up"
                 data-aos-duration="1600"
             >
@@ -171,14 +171,60 @@
                         href="#"
                     >
                         <span class="badge text-bg-primary rounded-pill"
-                            >Oil Change Kits</span
+                            >Polaris Pro R</span
                         >
                         <img
                             src="<?php echo esc_url(
                                 get_template_directory_uri(),
                             ); ?>/assets/images/thumb-product.png"
                             class="card-img-top"
-                            alt="EVP Number Plate Kit for Can-Am Maverick X3"
+                            alt="Polaris Pro R"
+                        />
+                    </a>
+                </div>
+            </div>
+            <div
+                class="col-6 col-lg-3"
+                data-aos="fade-up"
+                data-aos-duration="1600"
+            >
+                <div class="card">
+                    <a
+                        class="card-img-top-link rounded-corners img-zoom-container"
+                        href="#"
+                    >
+                        <span class="badge text-bg-primary rounded-pill"
+                            >Polaris Pro XP & Turbo R</span
+                        >
+                        <img
+                            src="<?php echo esc_url(
+                                get_template_directory_uri(),
+                            ); ?>/assets/images/thumb-product.png"
+                            class="card-img-top"
+                            alt="Polaris Pro XP & Turbo R"
+                        />
+                    </a>
+                </div>
+            </div>
+            <div
+                class="col-6 col-lg-3"
+                data-aos="fade-up"
+                data-aos-duration="1600"
+            >
+                <div class="card">
+                    <a
+                        class="card-img-top-link rounded-corners img-zoom-container"
+                        href="#"
+                    >
+                        <span class="badge text-bg-primary rounded-pill"
+                            >Kawasaki Teryx H2</span
+                        >
+                        <img
+                            src="<?php echo esc_url(
+                                get_template_directory_uri(),
+                            ); ?>/assets/images/thumb-product.png"
+                            class="card-img-top"
+                            alt="Kawasaki Teryx H2"
                         />
                     </a>
                 </div>
