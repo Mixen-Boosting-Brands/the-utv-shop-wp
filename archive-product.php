@@ -80,9 +80,22 @@
 <section class="pb-30">
     <div class="container">
         <div class="row">
+
+            <?php
+            // Detect active vehicle model filter
+            $vehicle_filter = "";
+
+            if (!empty($_GET["filter_vehicle-model"])) {
+                $vehicle_filter = sanitize_text_field(
+                    wp_unslash($_GET["filter_vehicle-model"]),
+                );
+            }
+            ?>
+
             <!-- Sidebar -->
             <div class="col-lg-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-duration="1400">
                 <h5>Categories</h5>
+
                 <div class="list-group list-group-flush">
                     <?php
                     $product_categories = get_terms([
@@ -96,17 +109,28 @@
                         !is_wp_error($product_categories)
                     ):
                         foreach ($product_categories as $category):
+
                             $current_class = is_product_category(
                                 $category->slug,
                             )
                                 ? "active"
-                                : ""; ?>
-                            <a href="<?php echo esc_url(
-                                get_term_link($category),
-                            ); ?>"
-                               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0 <?php echo esc_attr(
-                                   $current_class,
-                               ); ?>">
+                                : "";
+                            $category_link = get_term_link($category);
+
+                            if ($vehicle_filter) {
+                                $category_link = add_query_arg(
+                                    "filter_vehicle-model",
+                                    $vehicle_filter,
+                                    $category_link,
+                                );
+                            }
+                            ?>
+                            <a
+                                href="<?php echo esc_url($category_link); ?>"
+                                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0 <?php echo esc_attr(
+                                    $current_class,
+                                ); ?>"
+                            >
                                 <span><?php echo esc_html(
                                     $category->name,
                                 ); ?></span>
@@ -122,6 +146,7 @@
             <!-- Products -->
             <div class="col-lg-9">
                 <div class="row">
+
                     <!-- Header -->
                     <div class="col-12 mb-4" data-aos="fade-up" data-aos-duration="1600">
                         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
@@ -166,7 +191,10 @@
                                     $duration,
                                 ); ?>">
                                     <div class="card h-100">
-                                        <a class="card-img-top-link rounded-corners img-zoom-container" href="<?php the_permalink(); ?>">
+                                        <a
+                                            class="card-img-top-link rounded-corners img-zoom-container"
+                                            href="<?php the_permalink(); ?>"
+                                        >
                                             <?php if (has_post_thumbnail()): ?>
                                                 <?php the_post_thumbnail(
                                                     "thumb-square",
@@ -180,7 +208,8 @@
                                                     class="card-img-top"
                                                     alt="<?php echo esc_attr(
                                                         get_the_title(),
-                                                    ); ?>">
+                                                    ); ?>"
+                                                >
                                             <?php endif; ?>
                                         </a>
 
@@ -226,10 +255,12 @@
                                                     ); ?>
                                                 </a>
                                             <?php else: ?>
-                                                <span class="badge bg-danger mt-2"><?php esc_html_e(
-                                                    "Out of Stock",
-                                                    "your-textdomain",
-                                                ); ?></span>
+                                                <span class="badge bg-danger mt-2">
+                                                    <?php esc_html_e(
+                                                        "Out of Stock",
+                                                        "your-textdomain",
+                                                    ); ?>
+                                                </span>
                                             <?php endif; ?>
                                         </div>
                                     </div>
@@ -248,6 +279,7 @@
                             ); ?></p>
                         </div>
                     <?php endif; ?>
+
                 </div>
 
                 <!-- Pagination -->
@@ -259,6 +291,7 @@
                     </div>
                 <?php endif; ?>
             </div>
+
         </div>
     </div>
 </section>
