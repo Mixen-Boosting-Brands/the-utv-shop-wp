@@ -204,6 +204,17 @@ h6 {
     }
 }
 
+.list-group-item.active {
+    color: $secondary;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--bs-btn-hover-bg);
+        color: $secondary;
+    }
+}
+
 header {
     width: 100%;
     height: auto;
