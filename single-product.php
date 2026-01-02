@@ -292,7 +292,7 @@ endwhile; ?>
                 <div class="card">
                     <a class="card-img-top-link rounded-corners img-zoom-container" href="<?php the_permalink(); ?>">
                         <?php if (has_post_thumbnail()) {
-                            the_post_thumbnail("medium", [
+                            the_post_thumbnail("thumb-square", [
                                 "class" => "card-img-top",
                             ]);
                         } else {
