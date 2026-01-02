@@ -115,7 +115,7 @@
         </div>
         <div class="row">
             <div
-                class="col-6 col-lg-3"
+                class="col-6 col-lg-4 mb-4"
                 data-aos="fade-up"
                 data-aos-duration="1200"
             >
@@ -138,7 +138,7 @@
                 </div>
             </div>
             <div
-                class="col-6 col-lg-3"
+                class="col-6 col-lg-4 mb-4"
                 data-aos="fade-up"
                 data-aos-duration="1400"
             >
@@ -161,7 +161,7 @@
                 </div>
             </div>
             <div
-                class="col-6 col-lg-3"
+                class="col-6 col-lg-4 mb-4"
                 data-aos="fade-up"
                 data-aos-duration="1600"
             >
@@ -184,9 +184,9 @@
                 </div>
             </div>
             <div
-                class="col-6 col-lg-3"
+                class="col-6 col-lg-4 mb-4"
                 data-aos="fade-up"
-                data-aos-duration="1600"
+                data-aos-duration="1800"
             >
                 <div class="card">
                     <a
@@ -207,9 +207,9 @@
                 </div>
             </div>
             <div
-                class="col-6 col-lg-3"
+                class="col-6 col-lg-4 mb-4"
                 data-aos="fade-up"
-                data-aos-duration="1600"
+                data-aos-duration="2000"
             >
                 <div class="card">
                     <a
