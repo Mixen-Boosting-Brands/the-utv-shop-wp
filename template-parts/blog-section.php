@@ -1,3 +1,24 @@
+<section id="marquee-secondary" class="marquee">
+    <div class="marquee-content">
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+        <h1>Off-Road Updates</h1>
+    </div>
+</section>
+
 <section class="py-30">
     <div class="container">
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
