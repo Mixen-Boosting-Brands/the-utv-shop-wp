@@ -113,20 +113,19 @@
                 <p>Browse parts and accessories for your vehicle.</p>
             </div>
         </div>
+
         <div class="row">
-            <div
-                class="col-6 col-lg-4 mb-4"
-                data-aos="fade-up"
-                data-aos-duration="1200"
-            >
+            <!-- Can-Am Maverick R -->
+            <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="1200">
                 <div class="card">
                     <a
                         class="card-img-top-link rounded-corners img-zoom-container"
-                        href="#"
+                        href="<?php echo esc_url(
+                            wc_get_page_permalink("shop") .
+                                "?filter_vehicle-model=can-am-maverick-r",
+                        ); ?>"
                     >
-                        <span class="badge text-bg-primary rounded-pill"
-                            >Can-Am Maverick R</span
-                        >
+                        <span class="badge text-bg-primary rounded-pill">Can-Am Maverick R</span>
                         <img
                             src="<?php echo esc_url(
                                 get_template_directory_uri(),
@@ -137,42 +136,40 @@
                     </a>
                 </div>
             </div>
-            <div
-                class="col-6 col-lg-4 mb-4"
-                data-aos="fade-up"
-                data-aos-duration="1400"
-            >
+
+            <!-- Can-Am Maverick X3 -->
+            <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="1400">
                 <div class="card">
                     <a
                         class="card-img-top-link rounded-corners img-zoom-container"
-                        href="#"
+                        href="<?php echo esc_url(
+                            wc_get_page_permalink("shop") .
+                                "?filter_vehicle-model=can-am-maverick-x3",
+                        ); ?>"
                     >
-                        <span class="badge text-bg-primary rounded-pill"
-                            >Can-Am Maverick X3</span
-                        >
+                        <span class="badge text-bg-primary rounded-pill">Can-Am Maverick X3</span>
                         <img
                             src="<?php echo esc_url(
                                 get_template_directory_uri(),
                             ); ?>/assets/images/thumb-product.png"
                             class="card-img-top"
-                            alt="Can-Am Maverick R"
+                            alt="Can-Am Maverick X3"
                         />
                     </a>
                 </div>
             </div>
-            <div
-                class="col-6 col-lg-4 mb-4"
-                data-aos="fade-up"
-                data-aos-duration="1600"
-            >
+
+            <!-- Polaris Pro R -->
+            <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="1600">
                 <div class="card">
                     <a
                         class="card-img-top-link rounded-corners img-zoom-container"
-                        href="#"
+                        href="<?php echo esc_url(
+                            wc_get_page_permalink("shop") .
+                                "?filter_vehicle-model=polaris-pro-r",
+                        ); ?>"
                     >
-                        <span class="badge text-bg-primary rounded-pill"
-                            >Polaris Pro R</span
-                        >
+                        <span class="badge text-bg-primary rounded-pill">Polaris Pro R</span>
                         <img
                             src="<?php echo esc_url(
                                 get_template_directory_uri(),
@@ -183,19 +180,18 @@
                     </a>
                 </div>
             </div>
-            <div
-                class="col-6 col-lg-4 mb-4"
-                data-aos="fade-up"
-                data-aos-duration="1800"
-            >
+
+            <!-- Polaris Pro XP & Turbo R -->
+            <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="1800">
                 <div class="card">
                     <a
                         class="card-img-top-link rounded-corners img-zoom-container"
-                        href="#"
+                        href="<?php echo esc_url(
+                            wc_get_page_permalink("shop") .
+                                "?filter_vehicle-model=polaris-pro-xp-turbo-r",
+                        ); ?>"
                     >
-                        <span class="badge text-bg-primary rounded-pill"
-                            >Polaris Pro XP & Turbo R</span
-                        >
+                        <span class="badge text-bg-primary rounded-pill">Polaris Pro XP &amp; Turbo R</span>
                         <img
                             src="<?php echo esc_url(
                                 get_template_directory_uri(),
@@ -206,19 +202,18 @@
                     </a>
                 </div>
             </div>
-            <div
-                class="col-6 col-lg-4 mb-4"
-                data-aos="fade-up"
-                data-aos-duration="2000"
-            >
+
+            <!-- Kawasaki Teryx H2 -->
+            <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="2000">
                 <div class="card">
                     <a
                         class="card-img-top-link rounded-corners img-zoom-container"
-                        href="#"
+                        href="<?php echo esc_url(
+                            wc_get_page_permalink("shop") .
+                                "?filter_vehicle-model=kawasaki-teryx-h2",
+                        ); ?>"
                     >
-                        <span class="badge text-bg-primary rounded-pill"
-                            >Kawasaki Teryx H2</span
-                        >
+                        <span class="badge text-bg-primary rounded-pill">Kawasaki Teryx H2</span>
                         <img
                             src="<?php echo esc_url(
                                 get_template_directory_uri(),
