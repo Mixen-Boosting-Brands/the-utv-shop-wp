@@ -203,7 +203,7 @@ endwhile; ?>
                             <i class="fa-solid fa-arrow-right-long"></i>
                         </span>
                         <?php if (has_post_thumbnail()) {
-                            the_post_thumbnail("medium", [
+                            the_post_thumbnail("thumb-blog", [
                                 "class" => "card-img-top",
                             ]);
                         } else {
