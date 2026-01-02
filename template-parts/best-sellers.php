@@ -19,9 +19,7 @@
     </div>
 </section>
 
-<section class="<?php if (
-    is_page()
-): ?>pt-30 pb-15<?php else: ?>pt-15 pb-30<?php endif; ?>">
+<section class="py-30">
     <div class="container">
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
             <div class="col-6 my-auto">
