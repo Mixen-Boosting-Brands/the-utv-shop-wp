@@ -230,7 +230,7 @@
 
 <?php get_template_part("template-parts/best-sellers"); ?>
 
-<section class="pb-60">
+<!-- section class="pb-60">
     <div class="container" data-aos="fade-up" data-aos-duration="1000">
         <div class="row">
             <div class="col-12">
@@ -257,7 +257,7 @@
             </div>
         </div>
     </div>
-</section>
+</section -->
 
 <section class="brands py-60">
     <div class="container">
@@ -285,8 +285,8 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/logoipsum@2x.png"
-                                alt="Logoipsum"
+                                ); ?>/assets/images/brand-1.png"
+                                alt="Baja Designs"
                             />
                         </div>
                         <div class="swiper-slide">
@@ -294,8 +294,8 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/logoipsum@2x.png"
-                                alt="Logoipsum"
+                                ); ?>/assets/images/brand-2.png"
+                                alt="Fox Racing"
                             />
                         </div>
                         <div class="swiper-slide">
@@ -303,8 +303,8 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/logoipsum@2x.png"
-                                alt="Logoipsum"
+                                ); ?>/assets/images/brand-3.png"
+                                alt="DRT Motorsports"
                             />
                         </div>
                         <div class="swiper-slide">
@@ -312,8 +312,8 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/logoipsum@2x.png"
-                                alt="Logoipsum"
+                                ); ?>/assets/images/brand-1.png"
+                                alt="Baja Designs"
                             />
                         </div>
                         <div class="swiper-slide">
@@ -321,8 +321,8 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/logoipsum@2x.png"
-                                alt="Logoipsum"
+                                ); ?>/assets/images/brand-2.png"
+                                alt="Fox Racing"
                             />
                         </div>
                         <div class="swiper-slide">
@@ -330,8 +330,8 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/logoipsum@2x.png"
-                                alt="Logoipsum"
+                                ); ?>/assets/images/brand-3.png"
+                                alt="DRT Motorsports"
                             />
                         </div>
                         <div class="swiper-slide">
@@ -339,8 +339,26 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/logoipsum@2x.png"
-                                alt="Logoipsum"
+                                ); ?>/assets/images/brand-1.png"
+                                alt="Baja Designs"
+                            />
+                        </div>
+                        <div class="swiper-slide">
+                            <img
+                                class="img-fluid"
+                                src="<?php echo esc_url(
+                                    get_template_directory_uri(),
+                                ); ?>/assets/images/brand-2.png"
+                                alt="Fox Racing"
+                            />
+                        </div>
+                        <div class="swiper-slide">
+                            <img
+                                class="img-fluid"
+                                src="<?php echo esc_url(
+                                    get_template_directory_uri(),
+                                ); ?>/assets/images/brand-3.png"
+                                alt="DRT Motorsports"
                             />
                         </div>
                     </div>
