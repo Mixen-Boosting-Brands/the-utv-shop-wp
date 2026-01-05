@@ -55,17 +55,15 @@
             <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-duration="<?php echo $duration; ?>">
                 <div class="card">
                     <a class="card-img-top-link rounded-corners img-zoom-container" href="<?php the_permalink(); ?>">
-                        <?php if (has_post_thumbnail()) {
-                            the_post_thumbnail("thumb-square", [
+                        <?php if (has_post_thumbnail()): ?>
+                            <?php the_post_thumbnail("thumb-square", [
                                 "class" => "card-img-top",
-                            ]);
-                        } else {
-                            echo '<img src="' .
-                                esc_url(get_template_directory_uri()) .
-                                '/assets/images/thumb-product-tall.png" class="card-img-top" alt="' .
-                                esc_attr(get_the_title()) .
-                                '" />';
-                        } ?>
+                            ]); ?>
+                        <?php else: ?>
+                            <?php echo wc_placeholder_img("thumb-square", [
+                                "class" => "card-img-top",
+                            ]); ?>
+                        <?php endif; ?>
                     </a>
                     <div class="card-body">
                         <a href="<?php the_permalink(); ?>">
