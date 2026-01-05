@@ -285,7 +285,7 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/brand-1.png"
+                                ); ?>/assets/images/brands/brand-1.png"
                                 alt="Baja Designs"
                             />
                         </div>
@@ -294,7 +294,7 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/brand-2.png"
+                                ); ?>/assets/images/brands/brand-2.png"
                                 alt="Fox Racing"
                             />
                         </div>
@@ -303,7 +303,7 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/brand-3.png"
+                                ); ?>/assets/images/brands/brand-3.png"
                                 alt="DRT Motorsports"
                             />
                         </div>
@@ -312,7 +312,7 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/brand-1.png"
+                                ); ?>/assets/images/brands/brand-1.png"
                                 alt="Baja Designs"
                             />
                         </div>
@@ -321,7 +321,7 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/brand-2.png"
+                                ); ?>/assets/images/brands/brand-2.png"
                                 alt="Fox Racing"
                             />
                         </div>
@@ -330,7 +330,7 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/brand-3.png"
+                                ); ?>/assets/images/brands/brand-3.png"
                                 alt="DRT Motorsports"
                             />
                         </div>
@@ -339,7 +339,7 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/brand-1.png"
+                                ); ?>/assets/images/brands/brand-1.png"
                                 alt="Baja Designs"
                             />
                         </div>
@@ -348,7 +348,7 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/brand-2.png"
+                                ); ?>/assets/images/brands/brand-2.png"
                                 alt="Fox Racing"
                             />
                         </div>
@@ -357,7 +357,7 @@
                                 class="img-fluid"
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/brand-3.png"
+                                ); ?>/assets/images/brands/brand-3.png"
                                 alt="DRT Motorsports"
                             />
                         </div>
