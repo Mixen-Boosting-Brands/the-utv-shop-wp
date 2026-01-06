@@ -21,51 +21,76 @@
     </div>
 </section>
 
+<?php
+$featured_item = get_field("featured_item", "option");
+
+if ($featured_item):
+
+    $title = $featured_item["title"] ?? "";
+    $subtitle = $featured_item["subtitle"] ?? "";
+    $image = $featured_item["image"] ?? "";
+    $link = $featured_item["link"] ?? "";
+    ?>
+
 <section id="jumbotron">
     <div class="container">
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
             <div class="col">
-                <h1 class="big-heading text-uppercase">
-                    It's time for adventure
-                </h1>
+                <?php if ($title): ?>
+                    <h1 class="big-heading text-uppercase">
+                        <?php echo esc_html($title); ?>
+                    </h1>
+                <?php endif; ?>
             </div>
         </div>
+
         <div class="row" data-aos="fade-up" data-aos-duration="1200">
             <div class="col-6 my-auto">
-                <p class="mb-0">
-                    Let's find the perfect buggy for your trip.
-                </p>
+                <?php if ($subtitle): ?>
+                    <p class="mb-0">
+                        <?php echo esc_html($subtitle); ?>
+                    </p>
+                <?php endif; ?>
             </div>
+
             <div class="col-6 my-auto text-end">
-                <a class="btn btn-primary rounded-pill" href="#"
-                    >Shop now</a
-                >
+                <?php if ($link): ?>
+                    <a
+                        class="btn btn-primary rounded-pill"
+                        href="<?php echo esc_url($link); ?>"
+                    >
+                        Shop now
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
     </div>
 </section>
 
+<?php if ($image): ?>
 <section class="pb-30">
     <div class="container">
         <div class="row" data-aos="fade-up" data-aos-duration="1400">
             <div class="col text-center">
                 <a
-                    href="#"
-                    target="_blank"
+                    href="<?php echo esc_url($link ?: "#"); ?>"
                     class="rounded-corners img-zoom-container"
                 >
                     <img
                         class="img-fluid"
-                        src="<?php echo esc_url(
-                            get_template_directory_uri(),
-                        ); ?>/assets/images/banner.png"
-                        alt="Logo"
+                        src="<?php echo esc_url($image); ?>"
+                        alt="<?php echo esc_attr($title ?: "Featured item"); ?>"
                     />
                 </a>
             </div>
         </div>
     </div>
 </section>
+<?php endif; ?>
+
+<?php
+endif;
+?>
 
 <section class="cta py-60">
     <div class="container">
