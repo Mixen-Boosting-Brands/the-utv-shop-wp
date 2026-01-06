@@ -19,24 +19,46 @@
                         <p><strong>Shop</strong></p>
                         <nav>
                             <ul class="list-unstyled">
+                                <!-- All products -->
                                 <li>
-                                    <a href="#" target="_blank"
-                                        >All products</a
-                                    >
+                                    <a href="<?php echo esc_url(
+                                        wc_get_page_permalink("shop"),
+                                    ); ?>">
+                                        All products
+                                    </a>
                                 </li>
-                                <li>
-                                    <a href="#" target="_blank"
-                                        >Best sellers</a
-                                    >
-                                </li>
-                                <li>
-                                    <a href="#" target="_blank"
-                                        >New arrivals</a
-                                    >
-                                </li>
-                                <li>
-                                    <a href="#" target="_blank">Sale</a>
-                                </li>
+
+                                <?php
+                                $vehicle_models = get_terms([
+                                    "taxonomy" => "pa_vehicle-model",
+                                    "hide_empty" => true,
+                                    "orderby" => "name",
+                                    "order" => "ASC",
+                                ]);
+
+                                if (
+                                    !empty($vehicle_models) &&
+                                    !is_wp_error($vehicle_models)
+                                ):
+                                    foreach ($vehicle_models as $model):
+                                        $link = add_query_arg(
+                                            "filter_vehicle-model",
+                                            $model->slug,
+                                            wc_get_page_permalink("shop"),
+                                        ); ?>
+                                        <li>
+                                            <a href="<?php echo esc_url(
+                                                $link,
+                                            ); ?>">
+                                                <?php echo esc_html(
+                                                    $model->name,
+                                                ); ?>
+                                            </a>
+                                        </li>
+                                    <?php
+                                    endforeach;
+                                endif;
+                                ?>
                             </ul>
                         </nav>
                     </div>
