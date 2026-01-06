@@ -94,7 +94,7 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="col-12">
+                    <div class="col-6">
                         <p><strong>Contact Us</strong></p>
                         <address>
                             14350 Montana Ave<br />
@@ -106,61 +106,62 @@
                             >
                         </address>
                     </div>
+                    <div class="col-6">
+                        <p><strong>Follow Us</strong></p>
+                        <?php
+                        $social = get_field("social_media", "option");
+
+                        if ($social): ?>
+                        <ul class="list-inline">
+                            <?php if (!empty($social["instagram"])): ?>
+                                <li class="list-inline-item">
+                                    <a
+                                        href="<?php echo esc_url(
+                                            $social["instagram"],
+                                        ); ?>"
+                                        aria-label="Instagram"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+
+                            <?php if (!empty($social["youtube"])): ?>
+                                <li class="list-inline-item">
+                                    <a
+                                        href="<?php echo esc_url(
+                                            $social["youtube"],
+                                        ); ?>"
+                                        aria-label="YouTube"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <i class="fa-brands fa-youtube"></i>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+
+                            <?php if (!empty($social["tiktok"])): ?>
+                                <li class="list-inline-item">
+                                    <a
+                                        href="<?php echo esc_url(
+                                            $social["tiktok"],
+                                        ); ?>"
+                                        aria-label="TikTok"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <i class="fa-brands fa-tiktok"></i>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                        <?php endif;
+                        ?>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col mb-4 text-center text-md-start">
-                <?php
-                $social = get_field("social_media", "option");
-
-                if ($social): ?>
-                <ul class="list-inline">
-                    <?php if (!empty($social["instagram"])): ?>
-                        <li class="list-inline-item">
-                            <a
-                                href="<?php echo esc_url(
-                                    $social["instagram"],
-                                ); ?>"
-                                aria-label="Instagram"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <i class="fa-brands fa-instagram"></i>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-
-                    <?php if (!empty($social["youtube"])): ?>
-                        <li class="list-inline-item">
-                            <a
-                                href="<?php echo esc_url(
-                                    $social["youtube"],
-                                ); ?>"
-                                aria-label="YouTube"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <i class="fa-brands fa-youtube"></i>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-
-                    <?php if (!empty($social["tiktok"])): ?>
-                        <li class="list-inline-item">
-                            <a
-                                href="<?php echo esc_url($social["tiktok"]); ?>"
-                                aria-label="TikTok"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <i class="fa-brands fa-tiktok"></i>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-                <?php endif;
-                ?>
             </div>
         </div>
         <div class="row">
