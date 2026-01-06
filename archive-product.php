@@ -93,7 +93,46 @@
             ?>
 
             <!-- Sidebar -->
-            <div class="col-lg-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-duration="1400">
+            <aside class="col-lg-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-duration="1400">
+
+                <!-- Product Search -->
+                <div class="mb-4">
+                    <h5>Search</h5>
+
+                    <form role="search"
+                          method="get"
+                          action="<?php echo esc_url(
+                              get_permalink(wc_get_page_id("shop")),
+                          ); ?>"
+                          class="d-flex gap-2">
+
+                        <input
+                            type="search"
+                            class="form-control"
+                            placeholder="Search parts…"
+                            value="<?php echo isset($_GET["s"])
+                                ? esc_attr($_GET["s"])
+                                : ""; ?>"
+                            name="s"
+                        >
+
+                        <input type="hidden" name="post_type" value="product">
+
+                        <?php if (!empty($vehicle_filter)): ?>
+                            <input
+                                type="hidden"
+                                name="filter_vehicle-model"
+                                value="<?php echo esc_attr($vehicle_filter); ?>"
+                            >
+                        <?php endif; ?>
+
+                        <button type="submit" class="btn btn-primary rounded-pill">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Categories -->
                 <h5>Categories</h5>
 
                 <div class="list-group list-group-flush">
@@ -115,9 +154,10 @@
                             )
                                 ? "active"
                                 : "";
+
                             $category_link = get_term_link($category);
 
-                            if ($vehicle_filter) {
+                            if (!empty($vehicle_filter)) {
                                 $category_link = add_query_arg(
                                     "filter_vehicle-model",
                                     $vehicle_filter,
@@ -141,7 +181,8 @@
                     endif;
                     ?>
                 </div>
-            </div>
+
+            </aside>
 
             <!-- Products -->
             <div class="col-lg-9">
