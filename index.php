@@ -149,6 +149,7 @@ endif;
 
 <section class="py-30">
     <div class="container">
+
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
             <div class="col-12">
                 <h1 class="text-uppercase">Featured Vehicles</h1>
@@ -157,116 +158,73 @@ endif;
         </div>
 
         <div class="row">
-            <!-- Can-Am Maverick R -->
-            <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="1200">
-                <div class="card">
-                    <a
-                        class="card-img-top-link rounded-corners img-zoom-container"
-                        href="<?php echo esc_url(
-                            wc_get_page_permalink("shop") .
-                                "?filter_vehicle-model=can-am-maverick-r",
-                        ); ?>"
-                    >
-                        <span class="badge text-bg-primary rounded-pill">Can-Am Maverick R</span>
-                        <img
-                            src="<?php echo esc_url(
-                                get_template_directory_uri(),
-                            ); ?>/assets/images/thumb-product.png"
-                            class="card-img-top"
-                            alt="Can-Am Maverick R"
-                        />
-                    </a>
-                </div>
-            </div>
+            <?php if (have_rows("featured_vehicles", "option")):
+                $duration = 1200;
 
-            <!-- Can-Am Maverick X3 -->
-            <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="1400">
-                <div class="card">
-                    <a
-                        class="card-img-top-link rounded-corners img-zoom-container"
-                        href="<?php echo esc_url(
-                            wc_get_page_permalink("shop") .
-                                "?filter_vehicle-model=can-am-maverick-x3",
-                        ); ?>"
-                    >
-                        <span class="badge text-bg-primary rounded-pill">Can-Am Maverick X3</span>
-                        <img
-                            src="<?php echo esc_url(
-                                get_template_directory_uri(),
-                            ); ?>/assets/images/thumb-product.png"
-                            class="card-img-top"
-                            alt="Can-Am Maverick X3"
-                        />
-                    </a>
-                </div>
-            </div>
+                while (have_rows("featured_vehicles", "option")):
 
-            <!-- Polaris Pro R -->
-            <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="1600">
-                <div class="card">
-                    <a
-                        class="card-img-top-link rounded-corners img-zoom-container"
-                        href="<?php echo esc_url(
-                            wc_get_page_permalink("shop") .
-                                "?filter_vehicle-model=polaris-pro-r",
-                        ); ?>"
-                    >
-                        <span class="badge text-bg-primary rounded-pill">Polaris Pro R</span>
-                        <img
-                            src="<?php echo esc_url(
-                                get_template_directory_uri(),
-                            ); ?>/assets/images/thumb-product.png"
-                            class="card-img-top"
-                            alt="Polaris Pro R"
-                        />
-                    </a>
-                </div>
-            </div>
+                    the_row();
 
-            <!-- Polaris Pro XP & Turbo R -->
-            <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="1800">
-                <div class="card">
-                    <a
-                        class="card-img-top-link rounded-corners img-zoom-container"
-                        href="<?php echo esc_url(
-                            wc_get_page_permalink("shop") .
-                                "?filter_vehicle-model=polaris-pro-xp-turbo-r",
-                        ); ?>"
-                    >
-                        <span class="badge text-bg-primary rounded-pill">Polaris Pro XP &amp; Turbo R</span>
-                        <img
-                            src="<?php echo esc_url(
-                                get_template_directory_uri(),
-                            ); ?>/assets/images/thumb-product.png"
-                            class="card-img-top"
-                            alt="Polaris Pro XP & Turbo R"
-                        />
-                    </a>
-                </div>
-            </div>
+                    $name = get_sub_field("name");
+                    $image = get_sub_field("image"); // URL
+                    $link = get_sub_field("link");
 
-            <!-- Kawasaki Teryx H2 -->
-            <div class="col-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-duration="2000">
-                <div class="card">
-                    <a
-                        class="card-img-top-link rounded-corners img-zoom-container"
-                        href="<?php echo esc_url(
-                            wc_get_page_permalink("shop") .
-                                "?filter_vehicle-model=kawasaki-teryx-h2",
-                        ); ?>"
-                    >
-                        <span class="badge text-bg-primary rounded-pill">Kawasaki Teryx H2</span>
-                        <img
-                            src="<?php echo esc_url(
-                                get_template_directory_uri(),
-                            ); ?>/assets/images/thumb-product.png"
-                            class="card-img-top"
-                            alt="Kawasaki Teryx H2"
-                        />
-                    </a>
+                    if (!$name || !$link) {
+                        continue;
+                    }
+                    ?>
+                <div
+                    class="col-6 col-lg-4 mb-4"
+                    data-aos="fade-up"
+                    data-aos-duration="<?php echo esc_attr($duration); ?>"
+                >
+                    <div class="card">
+                        <a
+                            class="card-img-top-link rounded-corners img-zoom-container"
+                            href="<?php echo esc_url($link); ?>"
+                        >
+                            <span class="badge text-bg-primary rounded-pill">
+                                <?php echo esc_html($name); ?>
+                            </span>
+
+                            <?php if ($image): ?>
+                                <?php // Convert image URL to attachment ID
+                                $attachment_id = attachment_url_to_postid(
+                                    $image,
+                                ); ?>
+
+                                <?php if ($attachment_id): ?>
+                                    <?php echo wp_get_attachment_image(
+                                        $attachment_id,
+                                        "thumb-square",
+                                        false,
+                                        ["class" => "card-img-top"],
+                                    ); ?>
+                                <?php else: ?>
+                                    <img
+                                        src="<?php echo esc_url($image); ?>"
+                                        class="card-img-top"
+                                        alt="<?php echo esc_attr($name); ?>"
+                                    />
+                                <?php endif; ?>
+
+                            <?php else: ?>
+                                <img
+                                    src="<?php echo esc_url(
+                                        get_template_directory_uri(),
+                                    ); ?>/assets/images/thumb-product.png"
+                                    class="card-img-top"
+                                    alt="<?php echo esc_attr($name); ?>"
+                                />
+                            <?php endif; ?>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            <?php $duration += 200;
+                endwhile;
+            endif; ?>
         </div>
+
     </div>
 </section>
 
