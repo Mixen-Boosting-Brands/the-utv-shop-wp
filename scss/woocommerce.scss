@@ -1,0 +1,22 @@
+/* WooCommerce Cart Block - Proceed to Checkout button */
+.wc-block-cart__submit-button {
+    border-radius: 50rem !important; /* rounded-pill */
+}
+
+/* Map Bootstrap primary button styles */
+.wc-block-cart__submit-button {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: #fff;
+}
+
+/* Hover */
+.wc-block-cart__submit-button:hover {
+    background-color: var(--bs-primary-hover, #0b5ed7);
+    border-color: var(--bs-primary-hover, #0b5ed7);
+}
+
+/* Ensure text inherits color */
+.wc-block-cart__submit-button .wc-block-components-button__text {
+    color: inherit;
+}
