@@ -286,7 +286,10 @@
                 <?php if (woocommerce_product_loop()): ?>
                     <div class="row mt-4">
                         <div class="col-12">
-                            <?php woocommerce_pagination(); ?>
+                            <?php
+                            global $wp_query;
+                            echo bootstrap_pagination($wp_query);
+                            ?>
                         </div>
                     </div>
                 <?php endif; ?>
