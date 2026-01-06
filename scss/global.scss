@@ -284,6 +284,12 @@ header {
     }
 }
 
+.page-link,
+.page-link.active,
+.active > .page-link {
+    color: $secondary;
+}
+
 #map {
     float: left;
     line-height: 0;
