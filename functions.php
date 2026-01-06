@@ -727,21 +727,15 @@ add_filter("woocommerce_add_to_cart_fragments", function ($fragments) {
         WC()->cart->get_cart_contents_count() .
         "</span>";
     return $fragments;
-}); // WooCommerce - Vehicle Model Filter
-add_action("woocommerce_product_query", function ($q) {
-    if (is_admin()) {
-        return;
-    }
-    if (!empty($_GET["filter_vehicle-model"])) {
-        $vehicle_slug = sanitize_text_field(
+});
+// WooCommerce - Vehicle Model Filter
+add_action("init", function () {
+    if (
+        !empty($_GET["filter_vehicle-model"]) &&
+        empty($_GET["filter_pa_vehicle-model"])
+    ) {
+        $_GET["filter_pa_vehicle-model"] = sanitize_text_field(
             wp_unslash($_GET["filter_vehicle-model"]),
         );
-        $tax_query = (array) $q->get("tax_query");
-        $tax_query[] = [
-            "taxonomy" => "pa_vehicle-model",
-            "field" => "slug",
-            "terms" => [$vehicle_slug],
-        ];
-        $q->set("tax_query", $tax_query);
     }
 });
