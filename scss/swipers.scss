@@ -51,6 +51,14 @@
     overflow: visible;
 }
 
+.featured-vehicles-swiper .card {
+    height: 100%;
+}
+
+.featured-vehicles-swiper .swiper-slide {
+    height: auto;
+}
+
 @media (min-width: 992px) {
     .featured-vehicles-swiper .swiper-wrapper {
         display: flex;
