@@ -166,7 +166,7 @@
         </div>
         <div class="row">
             <div class="col text-center">
-                <p>
+                <p class="mb-0">
                     &copy; <?php echo the_date("Y"); ?> <?php bloginfo(
      "name",
  ); ?>. All rights reserved. |
