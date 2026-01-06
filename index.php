@@ -165,13 +165,21 @@ endif;
 
                     the_row();
 
-                    $name = get_sub_field("name");
+                    $vehicle_term = get_sub_field("vehicle_model"); // Term object
                     $image = get_sub_field("image"); // URL
-                    $link = get_sub_field("link");
 
-                    if (!$name || !$link) {
+                    if (!$vehicle_term || !is_object($vehicle_term)) {
                         continue;
                     }
+
+                    $name = $vehicle_term->name;
+                    $slug = $vehicle_term->slug;
+
+                    $link = add_query_arg(
+                        "filter_vehicle-model",
+                        $slug,
+                        wc_get_page_permalink("shop"),
+                    );
                     ?>
                 <div
                     class="col-6 col-lg-4 mb-4"
@@ -188,8 +196,7 @@ endif;
                             </span>
 
                             <?php if ($image): ?>
-                                <?php // Convert image URL to attachment ID
-                                $attachment_id = attachment_url_to_postid(
+                                <?php $attachment_id = attachment_url_to_postid(
                                     $image,
                                 ); ?>
 
@@ -207,7 +214,6 @@ endif;
                                         alt="<?php echo esc_attr($name); ?>"
                                     />
                                 <?php endif; ?>
-
                             <?php else: ?>
                                 <img
                                     src="<?php echo esc_url(
