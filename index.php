@@ -157,116 +157,79 @@ endif;
             </div>
         </div>
 
-        <?php if (have_rows("featured_vehicles", "option")): ?>
-
-            <!-- MOBILE: Swiper -->
-            <div class="swiper featured-vehicles-swiper d-lg-none">
-                <div class="swiper-wrapper">
-
-                    <?php while (have_rows("featured_vehicles", "option")):
-
-                        the_row();
-
-                        $name = get_sub_field("name");
-                        $image = get_sub_field("image");
-                        $link = get_sub_field("link");
-                        ?>
-
-                        <div class="swiper-slide">
-                            <div class="card h-100">
-                                <a
-                                    class="card-img-top-link rounded-corners img-zoom-container"
-                                    href="<?php echo esc_url($link); ?>"
-                                >
-                                    <span class="badge text-bg-primary rounded-pill">
-                                        <?php echo esc_html($name); ?>
-                                    </span>
-
-                                    <?php if ($image): ?>
-                                        <?php echo wp_get_attachment_image(
-                                            attachment_url_to_postid($image),
-                                            "thumb-square",
-                                            false,
-                                            ["class" => "card-img-top"],
-                                        ); ?>
-                                    <?php else: ?>
-                                        <img
-                                            src="<?php echo esc_url(
-                                                wc_placeholder_img_src(),
-                                            ); ?>"
-                                            class="card-img-top"
-                                            alt="<?php echo esc_attr($name); ?>"
-                                        >
-                                    <?php endif; ?>
-                                </a>
-                            </div>
-                        </div>
-
-                    <?php
-                    endwhile; ?>
-
-                </div>
-
-                <div class="swiper-pagination"></div>
-            </div>
-
-            <!-- DESKTOP: Grid -->
-            <div class="row d-none d-lg-flex">
-
-                <?php
-                rewind_rows();
+        <div class="row">
+            <?php if (have_rows("featured_vehicles", "option")):
                 $duration = 1200;
 
                 while (have_rows("featured_vehicles", "option")):
 
                     the_row();
 
-                    $name = get_sub_field("name");
-                    $image = get_sub_field("image");
-                    $link = get_sub_field("link");
+                    $vehicle_term = get_sub_field("vehicle_model"); // Term object
+                    $image = get_sub_field("image"); // URL
+
+                    if (!$vehicle_term || !is_object($vehicle_term)) {
+                        continue;
+                    }
+
+                    $name = $vehicle_term->name;
+                    $slug = $vehicle_term->slug;
+
+                    $link = add_query_arg(
+                        "filter_vehicle-model",
+                        $slug,
+                        wc_get_page_permalink("shop"),
+                    );
                     ?>
+                <div
+                    class="col-12 col-lg-4 mb-4"
+                    data-aos="fade-up"
+                    data-aos-duration="<?php echo esc_attr($duration); ?>"
+                >
+                    <div class="card">
+                        <a
+                            class="card-img-top-link rounded-corners img-zoom-container"
+                            href="<?php echo esc_url($link); ?>"
+                        >
+                            <span class="badge text-bg-primary rounded-pill">
+                                <?php echo esc_html($name); ?>
+                            </span>
 
-                    <div
-                        class="col-lg-4 mb-4"
-                        data-aos="fade-up"
-                        data-aos-duration="<?php echo esc_attr($duration); ?>"
-                    >
-                        <div class="card h-100">
-                            <a
-                                class="card-img-top-link rounded-corners img-zoom-container"
-                                href="<?php echo esc_url($link); ?>"
-                            >
-                                <span class="badge text-bg-primary rounded-pill">
-                                    <?php echo esc_html($name); ?>
-                                </span>
+                            <?php if ($image): ?>
+                                <?php $attachment_id = attachment_url_to_postid(
+                                    $image,
+                                ); ?>
 
-                                <?php if ($image): ?>
+                                <?php if ($attachment_id): ?>
                                     <?php echo wp_get_attachment_image(
-                                        attachment_url_to_postid($image),
+                                        $attachment_id,
                                         "thumb-square",
                                         false,
                                         ["class" => "card-img-top"],
                                     ); ?>
                                 <?php else: ?>
                                     <img
-                                        src="<?php echo esc_url(
-                                            wc_placeholder_img_src(),
-                                        ); ?>"
+                                        src="<?php echo esc_url($image); ?>"
                                         class="card-img-top"
                                         alt="<?php echo esc_attr($name); ?>"
-                                    >
+                                    />
                                 <?php endif; ?>
-                            </a>
-                        </div>
+                            <?php else: ?>
+                                <img
+                                    src="<?php echo esc_url(
+                                        get_template_directory_uri(),
+                                    ); ?>/assets/images/thumb-product.png"
+                                    class="card-img-top"
+                                    alt="<?php echo esc_attr($name); ?>"
+                                />
+                            <?php endif; ?>
+                        </a>
                     </div>
-
-                <?php $duration += 200;
+                </div>
+            <?php $duration += 200;
                 endwhile;
-                ?>
-
-            </div>
-
-        <?php endif; ?>
+            endif; ?>
+        </div>
 
     </div>
 </section>
