@@ -98,26 +98,58 @@
                     </ul>
                 </nav>
                 <div id="social">
+                    <?php
+                    $social = get_field("social_media", "option");
+
+                    if ($social): ?>
                     <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <a
-                                href="https://www.instagram.com/"
-                                target="_blank"
-                            >
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="https://www.youtube.com/" target="_blank">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="https://www.tiktok.com/" target="_blank">
-                                <i class="fab fa-tiktok"></i>
-                            </a>
-                        </li>
+                        <?php if (!empty($social["instagram"])): ?>
+                            <li class="list-inline-item">
+                                <a
+                                    href="<?php echo esc_url(
+                                        $social["instagram"],
+                                    ); ?>"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Instagram"
+                                >
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
+                        <?php if (!empty($social["youtube"])): ?>
+                            <li class="list-inline-item">
+                                <a
+                                    href="<?php echo esc_url(
+                                        $social["youtube"],
+                                    ); ?>"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="YouTube"
+                                >
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
+                        <?php if (!empty($social["tiktok"])): ?>
+                            <li class="list-inline-item">
+                                <a
+                                    href="<?php echo esc_url(
+                                        $social["tiktok"],
+                                    ); ?>"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="TikTok"
+                                >
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
+                    <?php endif;
+                    ?>
                 </div>
                 <div id="contacto-menu">
                     <ul class="list-unstyled">
