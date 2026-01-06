@@ -254,6 +254,13 @@ header {
             color: $color-link;
         }
     }
+
+    #btn-cart {
+        &:hover,
+        &:focus {
+            color: $secondary;
+        }
+    }
 }
 
 .navbar-scroll {
