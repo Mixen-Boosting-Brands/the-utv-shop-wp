@@ -728,3 +728,24 @@ add_filter("woocommerce_add_to_cart_fragments", function ($fragments) {
         "</span>";
     return $fragments;
 });
+add_action("pre_get_posts", function ($query) {
+    if (
+        is_admin() ||
+        !$query->is_main_query() ||
+        (!is_post_type_archive("product") && !is_shop())
+    ) {
+        return;
+    }
+    if (!empty($_GET["filter_vehicle-model"])) {
+        $vehicle_slug = sanitize_text_field(
+            wp_unslash($_GET["filter_vehicle-model"]),
+        );
+        $tax_query = (array) $query->get("tax_query");
+        $tax_query[] = [
+            "taxonomy" => "pa_vehicle-model",
+            "field" => "slug",
+            "terms" => [$vehicle_slug],
+        ];
+        $query->set("tax_query", $tax_query);
+    }
+});
