@@ -45,3 +45,19 @@
         transform: translateX(-50%) !important;
     }
 }
+
+// swiperFeaturedVehicles
+.featured-vehicles-swiper {
+    overflow: visible;
+}
+
+@media (min-width: 992px) {
+    .featured-vehicles-swiper .swiper-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .featured-vehicles-swiper .swiper-slide {
+        width: auto !important;
+    }
+}
