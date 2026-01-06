@@ -604,8 +604,8 @@ function bootstrap_pagination(
                 "end_size" => 3,
                 "mid_size" => 1,
                 "prev_next" => true,
-                "prev_text" => __("« Anterior"),
-                "next_text" => __("Siguiente »"),
+                "prev_text" => __("« Previous"),
+                "next_text" => __("Next »"),
                 "add_args" => $add_args,
                 "add_fragment" => "",
             ],
@@ -641,7 +641,8 @@ function get_custom_breadcrumb()
     }
     $breadcrumb =
         '<nav style="--bs-breadcrumb-divider: \'>\'" aria-label="breadcrumb">';
-    $breadcrumb .= '<ol class="breadcrumb">'; // Home
+    $breadcrumb .= '<ol class="breadcrumb">';
+    // Home
     $breadcrumb .=
         '<li class="breadcrumb-item"><a href="' .
         esc_url(home_url("/")) .
