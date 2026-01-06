@@ -250,6 +250,6 @@ endif;
 
 <?php get_template_part("template-parts/featured-brands"); ?>
 
-<?php get_template_part("template-parts/blog-section"); ?>
+<!-- ?php get_template_part("template-parts/blog-section"); ? -->
 
 <?php get_footer(); ?>

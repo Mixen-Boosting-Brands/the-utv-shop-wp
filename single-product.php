@@ -219,6 +219,6 @@ endwhile; ?>
 
 <?php get_template_part("template-parts/best-sellers"); ?>
 
-<?php get_template_part("template-parts/blog-section"); ?>
+<!-- ?php get_template_part("template-parts/blog-section"); ? -->
 
 <?php get_footer(); ?>

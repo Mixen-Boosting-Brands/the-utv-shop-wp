@@ -323,6 +323,6 @@
 
 <?php get_template_part("template-parts/recently-viewed"); ?>
 
-<?php get_template_part("template-parts/blog-section"); ?>
+<!-- ?php get_template_part("template-parts/blog-section"); ? -->
 
 <?php get_footer(); ?>
