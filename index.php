@@ -182,7 +182,7 @@ endif;
                     );
                     ?>
                 <div
-                    class="col-12 col-lg-4 mb-4"
+                    class="col-12 col-md-6 col-lg-4 mb-4"
                     data-aos="fade-up"
                     data-aos-duration="<?php echo esc_attr($duration); ?>"
                 >
