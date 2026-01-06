@@ -81,24 +81,41 @@
                     Made Simple
                 </h1>
             </div>
+
             <div
                 class="col-lg-5 my-auto"
                 data-aos="fade-up"
                 data-aos-duration="2100"
             >
-                <h2 class="text-uppercase"><?php echo get_the_title(19); ?></h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing
-                    elit. Sed euismod, nisl vel aliquam aliquet, nisl
-                    nisl aliquet nisl, vel aliquet nisl nisl vel aliquet
-                    nisl.
-                </p>
-                <?php if (get_post_status(19)): ?>
-                <a href="<?php echo get_permalink(
-                    19,
-                ); ?>" class="btn btn-primary rounded-pill">
-                    Learn More
-                </a>
+                <?php
+                $about_page_id = 19;
+                $about_post = get_post($about_page_id);
+                ?>
+
+                <?php if (
+                    $about_post &&
+                    $about_post->post_status === "publish"
+                ): ?>
+                    <h2 class="text-uppercase">
+                        <?php echo esc_html(get_the_title($about_page_id)); ?>
+                    </h2>
+
+                    <p>
+                        <?php echo esc_html(
+                            has_excerpt($about_page_id)
+                                ? get_the_excerpt($about_page_id)
+                                : wp_trim_words($about_post->post_content, 35),
+                        ); ?>
+                    </p>
+
+                    <a
+                        href="<?php echo esc_url(
+                            get_permalink($about_page_id),
+                        ); ?>"
+                        class="btn btn-primary rounded-pill"
+                    >
+                        Learn More
+                    </a>
                 <?php endif; ?>
             </div>
         </div>
