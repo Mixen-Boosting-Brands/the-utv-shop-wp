@@ -775,4 +775,21 @@ add_action("init", function () {
             wp_unslash($_GET["filter_vehicle-model"]),
         );
     }
+}); // WooCommerce - Recently Viewed Products
+add_action("template_redirect", function () {
+    if (!is_singular("product")) {
+        return;
+    }
+    if (!isset($_COOKIE["woocommerce_recently_viewed"])) {
+        $viewed_products = [];
+    } else {
+        $viewed_products = explode(
+            "|",
+            wp_unslash($_COOKIE["woocommerce_recently_viewed"]),
+        );
+    }
+    $viewed_products = array_diff($viewed_products, [get_the_ID()]);
+    array_unshift($viewed_products, get_the_ID());
+    $viewed_products = array_slice($viewed_products, 0, 15);
+    wc_setcookie("woocommerce_recently_viewed", implode("|", $viewed_products));
 });
