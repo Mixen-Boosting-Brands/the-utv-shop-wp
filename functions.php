@@ -792,4 +792,14 @@ add_action("template_redirect", function () {
     array_unshift($viewed_products, get_the_ID());
     $viewed_products = array_slice($viewed_products, 0, 15);
     wc_setcookie("woocommerce_recently_viewed", implode("|", $viewed_products));
+}); // Style Proceed to Checkout Button
+add_filter("woocommerce_proceed_to_checkout", function () {
+    ob_start(); ?>
+
+    <a href="<?php echo esc_url(wc_get_checkout_url()); ?>"
+       class="checkout-button btn btn-primary rounded-pill">
+        <?php esc_html_e("Proceed to Checkout", "woocommerce"); ?>
+    </a>
+
+    <?php return ob_get_clean();
 });
