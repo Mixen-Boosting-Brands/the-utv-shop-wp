@@ -119,6 +119,8 @@ h6 {
     font-weight: normal;
     font-style: normal;
     text-transform: uppercase;
+    padding-right: 2.4rem;
+    padding-left: 2.4rem;
 }
 
 .btn-secondary {
@@ -387,6 +389,10 @@ header {
         font-family: $font-body;
         @include font-size(1.6rem);
     }
+}
+
+#our-story {
+    @include font-size(1.2rem);
 }
 
 footer {

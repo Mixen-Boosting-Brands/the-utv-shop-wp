@@ -1,4 +1,4 @@
-<section class="brands py-60">
+<section class="brands mb-5 py-60">
     <div class="container">
         <div
             class="row mb-lg-4"

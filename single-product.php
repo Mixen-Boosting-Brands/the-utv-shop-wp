@@ -1,25 +1,6 @@
 <?php get_header(); ?>
 
-<section id="marquee-primary" class="marquee">
-    <div class="marquee-content">
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-    </div>
-</section>
+<?php get_template_part("template-parts/top-marquee"); ?>
 
 <?php while (have_posts()):
 

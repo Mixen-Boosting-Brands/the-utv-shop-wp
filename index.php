@@ -1,25 +1,6 @@
 <?php get_header(); ?>
 
-<section id="marquee-primary" class="marquee">
-    <div class="marquee-content">
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-        <h1>Turbocharged Adventures, Built to Last</h1>
-    </div>
-</section>
+<?php get_template_part("template-parts/top-marquee"); ?>
 
 <?php
 $featured_item = get_field("featured_item", "option");
@@ -92,7 +73,7 @@ if ($featured_item):
 endif;
 ?>
 
-<section class="cta py-60">
+<section id="our-story" class="cta py-60">
     <div class="container">
         <div class="row">
             <div
@@ -133,14 +114,16 @@ endif;
                         ); ?>
                     </p>
 
-                    <a
-                        href="<?php echo esc_url(
-                            get_permalink($about_page_id),
-                        ); ?>"
-                        class="btn btn-primary rounded-pill"
-                    >
-                        Learn More
-                    </a>
+                    <div class="text-end">
+                        <a
+                            href="<?php echo esc_url(
+                                get_permalink($about_page_id),
+                            ); ?>"
+                            class="btn btn-primary rounded-pill"
+                        >
+                            Learn More
+                        </a>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>

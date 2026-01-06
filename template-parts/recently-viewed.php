@@ -19,7 +19,7 @@
     </div>
 </section>
 
-<section class="pt-30 pb-15">
+<section class="pt-60 pb-30">
     <div class="container">
         <div class="row">
 

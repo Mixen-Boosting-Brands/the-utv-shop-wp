@@ -15,7 +15,7 @@
             </div>
             <div class="col-lg-5 mb-4">
                 <div class="row">
-                    <div class="col-6 col-lg-4">
+                    <div class="col-6">
                         <p><strong>Shop</strong></p>
                         <nav>
                             <ul class="list-unstyled">
@@ -62,7 +62,7 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="col-6 col-lg-4">
+                    <div class="col-6">
                         <p><strong>Policies</strong></p>
                         <nav>
                             <ul class="list-unstyled">
@@ -94,7 +94,7 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="col-6 col-lg-4">
+                    <div class="col-12">
                         <p><strong>Contact Us</strong></p>
                         <address>
                             14350 Montana Ave<br />

@@ -19,7 +19,7 @@
     </div>
 </section>
 
-<section class="py-30">
+<section class="py-60">
     <div class="container">
         <div class="row" data-aos="fade-up" data-aos-duration="1000">
             <div class="col-12">
