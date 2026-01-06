@@ -636,63 +636,99 @@ function bootstrap_pagination(
 // Breadcrumbs
 function get_custom_breadcrumb()
 {
-    // Don't show on homepage
     if (is_front_page()) {
         return;
     }
     $breadcrumb =
         '<nav style="--bs-breadcrumb-divider: \'>\'" aria-label="breadcrumb">';
-    $breadcrumb .= '<ol class="breadcrumb">'; // Home link
+    $breadcrumb .= '<ol class="breadcrumb">'; // Home
     $breadcrumb .=
         '<li class="breadcrumb-item"><a href="' .
-        home_url("/") .
-        '">Home</a></li>';
-    // For WooCommerce products
-    if (is_singular("product")) {
-        $product_id = get_the_ID();
-        $terms = get_the_terms($product_id, "product_cat");
-        // Show product category
+        esc_url(home_url("/")) .
+        '">Home</a></li>'; // Detect vehicle model from query
+    $vehicle_term = null;
+    if (!empty($_GET["filter_vehicle-model"])) {
+        $vehicle_slug = sanitize_text_field(
+            wp_unslash($_GET["filter_vehicle-model"]),
+        );
+        $vehicle_term = get_term_by("slug", $vehicle_slug, "pa_vehicle-model");
+    } // SHOP / ARCHIVES
+    if (is_shop() || is_product_category() || is_singular("product")) {
+        $breadcrumb .=
+            '<li class="breadcrumb-item"><a href="' .
+            esc_url(get_permalink(wc_get_page_id("shop"))) .
+            '">Shop</a></li>';
+    }
+    // Vehicle model breadcrumb
+    if ($vehicle_term && !is_wp_error($vehicle_term)) {
+        $vehicle_link = add_query_arg(
+            "filter_vehicle-model",
+            $vehicle_term->slug,
+            get_permalink(wc_get_page_id("shop")),
+        );
+        $breadcrumb .=
+            '<li class="breadcrumb-item"><a href="' .
+            esc_url($vehicle_link) .
+            '">' .
+            esc_html($vehicle_term->name) .
+            "</a></li>";
+    } // Product category
+    if (is_product_category()) {
+        $breadcrumb .=
+            '<li class="breadcrumb-item active">' .
+            single_term_title("", false) .
+            "</li>";
+    }
+    // Shop main page with vehicle filter
+    elseif (is_shop() && $vehicle_term) {
+        $breadcrumb .= '<li class="breadcrumb-item active">All Products</li>';
+    }
+    // Single product
+    elseif (is_singular("product")) {
+        $terms = get_the_terms(get_the_ID(), "product_cat");
         if ($terms && !is_wp_error($terms)) {
             $term = array_shift($terms);
+            $term_link = get_term_link($term);
+            if ($vehicle_term) {
+                $term_link = add_query_arg(
+                    "filter_vehicle-model",
+                    $vehicle_term->slug,
+                    $term_link,
+                );
+            }
             $breadcrumb .=
                 '<li class="breadcrumb-item"><a href="' .
-                get_term_link($term) .
+                esc_url($term_link) .
                 '">' .
-                $term->name .
-                "</a></li>";
-        } // Current product
-        $breadcrumb .=
-            '<li class="breadcrumb-item active">' . get_the_title() . "</li>";
-    }
-    // For blog posts
-    elseif (is_single()) {
-        $category = get_the_category();
-        if ($category) {
-            $breadcrumb .=
-                '<li class="breadcrumb-item"><a href="' .
-                get_category_link($category[0]->term_id) .
-                '">' .
-                $category[0]->name .
+                esc_html($term->name) .
                 "</a></li>";
         }
         $breadcrumb .=
             '<li class="breadcrumb-item active">' . get_the_title() . "</li>";
     }
-    // For pages
-    elseif (is_page()) {
+    // Blog
+    elseif (is_single()) {
+        $category = get_the_category();
+        if ($category) {
+            $breadcrumb .=
+                '<li class="breadcrumb-item"><a href="' .
+                esc_url(get_category_link($category[0]->term_id)) .
+                '">' .
+                esc_html($category[0]->name) .
+                "</a></li>";
+        }
         $breadcrumb .=
             '<li class="breadcrumb-item active">' . get_the_title() . "</li>";
-    }
-    // For categories
-    elseif (is_category()) {
+    } elseif (is_category()) {
         $breadcrumb .=
             '<li class="breadcrumb-item active">' .
             single_cat_title("", false) .
             "</li>";
-    }
-    // For blog archives
-    elseif (is_home()) {
+    } elseif (is_home()) {
         $breadcrumb .= '<li class="breadcrumb-item active">Blog</li>';
+    } elseif (is_page()) {
+        $breadcrumb .=
+            '<li class="breadcrumb-item active">' . get_the_title() . "</li>";
     }
     $breadcrumb .= "</ol></nav>";
     return $breadcrumb;
