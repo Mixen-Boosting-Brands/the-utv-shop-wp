@@ -1,4 +1,4 @@
-<footer>
+<footer id="contact-us">
     <div class="container-fluid">
         <div class="row">
             <div class="col">

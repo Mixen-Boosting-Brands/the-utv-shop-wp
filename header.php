@@ -75,25 +75,54 @@
                 </a>
                 <nav>
                     <ul id="navmenu" class="list-unstyled mb-0">
+                        <!-- Home -->
                         <li>
-                            <a class="anchor" id="btn-nav-1" href="#"
-                                >Element 1</a
+                            <a
+                                class="anchor"
+                                id="btn-nav-1"
+                                href="<?php echo esc_url(home_url("/")); ?>"
                             >
+                                Home
+                            </a>
                         </li>
+
+                        <!-- Our Story (About Us – page ID 19) -->
                         <li>
-                            <a class="anchor" id="btn-nav-2" href="#"
-                                >Element 2</a
+                            <a
+                                class="anchor"
+                                id="btn-nav-2"
+                                href="<?php echo esc_url(get_permalink(19)); ?>"
                             >
+                                Our story
+                            </a>
                         </li>
+
+                        <!-- Best Sellers -->
                         <li>
-                            <a class="anchor" id="btn-nav-3" href="#"
-                                >Element 3</a
+                            <a
+                                class="anchor"
+                                id="btn-nav-3"
+                                href="<?php echo esc_url(
+                                    add_query_arg(
+                                        "orderby",
+                                        "popularity",
+                                        wc_get_page_permalink("shop"),
+                                    ),
+                                ); ?>"
                             >
+                                Best sellers
+                            </a>
                         </li>
+
+                        <!-- Contact Us (anchor on same page) -->
                         <li>
-                            <a class="anchor" id="btn-nav-4" href="#"
-                                >Element 4</a
+                            <a
+                                class="anchor"
+                                id="btn-nav-4"
+                                href="#contact-us"
                             >
+                                Contact Us
+                            </a>
                         </li>
                     </ul>
                 </nav>
@@ -190,17 +219,42 @@
                     <div class="col-lg-6 my-auto d-none d-lg-block text-center">
                         <nav>
                             <ul class="list-inline mb-0">
+                                <!-- Home -->
                                 <li class="list-inline-item">
-                                    <a href="#">Element 1</a>
+                                    <a href="<?php echo esc_url(
+                                        home_url("/"),
+                                    ); ?>">
+                                        Home
+                                    </a>
                                 </li>
+
+                                <!-- Our Story (About Us – page ID 19) -->
                                 <li class="list-inline-item">
-                                    <a href="#">Element 2</a>
+                                    <a href="<?php echo esc_url(
+                                        get_permalink(19),
+                                    ); ?>">
+                                        Our story
+                                    </a>
                                 </li>
+
+                                <!-- Best Sellers -->
                                 <li class="list-inline-item">
-                                    <a href="#">Element 3</a>
+                                    <a href="<?php echo esc_url(
+                                        add_query_arg(
+                                            "orderby",
+                                            "popularity",
+                                            wc_get_page_permalink("shop"),
+                                        ),
+                                    ); ?>">
+                                        Best sellers
+                                    </a>
                                 </li>
+
+                                <!-- Contact Us (anchor on same page) -->
                                 <li class="list-inline-item">
-                                    <a href="#">Element 4</a>
+                                    <a href="#contact-us">
+                                        Contact Us
+                                    </a>
                                 </li>
                             </ul>
                         </nav>
