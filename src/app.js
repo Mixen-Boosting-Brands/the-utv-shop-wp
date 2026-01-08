@@ -10,16 +10,19 @@ import "../src/swipers";
 
 // Header
 document.addEventListener("DOMContentLoaded", function () {
-    // Cache the DOM element containing the navbar
+    // Cache the DOM element containing the navbar and logo
     var header = document.getElementById("navbar");
+    var logo = document.getElementById("logo-navbar");
 
     function updateScroll() {
         var scroll = window.pageYOffset || document.documentElement.scrollTop;
 
         if (scroll >= 1) {
             header.classList.add("navbar-scroll");
+            logo.src = logo.getAttribute("data-theme-dark");
         } else {
             header.classList.remove("navbar-scroll");
+            logo.src = logo.getAttribute("data-theme-light");
         }
     }
 
