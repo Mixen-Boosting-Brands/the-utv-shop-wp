@@ -64,13 +64,13 @@
                         alt=""
                         src="<?php echo esc_url(
                             get_template_directory_uri(),
-                        ); ?>/assets/images/logo@2x.png"
+                        ); ?>/assets/images/logo-light@2x.png"
                         data-theme-light="<?php echo esc_url(
                             get_template_directory_uri(),
-                        ); ?>/assets/images/logo@2x.png"
+                        ); ?>/assets/images/logo-light@2x.png"
                         data-theme-dark="<?php echo esc_url(
                             get_template_directory_uri(),
-                        ); ?>/assets/images/logo@2x.png"
+                        ); ?>/assets/images/logo-dark@2x.png"
                     />
                 </a>
                 <nav>
@@ -206,13 +206,13 @@
                                 alt=""
                                 src="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/logo@2x.png"
+                                ); ?>/assets/images/logo-light@2x.png"
                                 data-theme-light="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/logo@2x.png"
+                                ); ?>/assets/images/logo-light@2x.png"
                                 data-theme-dark="<?php echo esc_url(
                                     get_template_directory_uri(),
-                                ); ?>/assets/images/logo@2x.png"
+                                ); ?>/assets/images/logo-dark@2x.png"
                             />
                         </a>
                     </div>
