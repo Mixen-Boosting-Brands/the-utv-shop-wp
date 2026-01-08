@@ -64,7 +64,7 @@
                         alt=""
                         src="<?php echo esc_url(
                             get_template_directory_uri(),
-                        ); ?>/assets/images/logo-light@2x.png"
+                        ); ?>/assets/images/logo-dark@2x.png"
                         data-theme-light="<?php echo esc_url(
                             get_template_directory_uri(),
                         ); ?>/assets/images/logo-light@2x.png"
