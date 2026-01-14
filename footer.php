@@ -101,8 +101,8 @@
                             El Paso, TX 79938<br />
                             <a href="tel:+19151234567">(915) 123-4567</a
                             ><br />
-                            <a href="mailto:info@theutv.com"
-                                >info@theutv.com</a
+                            <a href="mailto:info@theutvshopep.com"
+                                >info@theutvshopep.com</a
                             >
                         </address>
                     </div>

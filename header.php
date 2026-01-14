@@ -199,7 +199,7 @@
                     <ul class="list-unstyled">
                         <li>
                             <i class="fa-solid fa-envelope"></i>
-                            <a href="mailto:info@theutv.com">info@theutv.com</a>
+                            <a href="mailto:info@theutvshopep.com">info@theutvshopep.com</a>
                         </li>
                         <li>
                             <i class="fas fa-phone"></i>
