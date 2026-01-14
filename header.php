@@ -132,6 +132,21 @@
 
                     if ($social): ?>
                     <ul class="list-inline">
+                        <?php if (!empty($social["facebook"])): ?>
+                            <li class="list-inline-item">
+                                <a
+                                    href="<?php echo esc_url(
+                                        $social["facebook"],
+                                    ); ?>"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Facebook"
+                                >
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
                         <?php if (!empty($social["instagram"])): ?>
                             <li class="list-inline-item">
                                 <a
