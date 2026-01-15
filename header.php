@@ -213,7 +213,7 @@
         <header id="navbar">
             <div class="container">
                 <div class="row">
-                    <div class="col-6 col-lg-4 my-auto">
+                    <div class="col-8 col-lg-4 my-auto">
                         <a href="<?php echo esc_url(home_url()); ?>">
                             <img
                                 id="logo-navbar"
@@ -274,7 +274,7 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="col-6 col-lg-2 my-auto text-end">
+                    <div class="col-4 col-lg-2 my-auto text-end">
                         <ul class="list-inline mb-0">
                         <?php if (function_exists("WC")): ?>
                             <li class="list-inline-item">
