@@ -31,7 +31,7 @@
                     } elseif (is_shop()) {
                         echo esc_html__(
                             "Fuel your next journey",
-                            "your-textdomain",
+                            "the-utv-shop",
                         );
                     } elseif (is_product_category()) {
                         single_term_title();
@@ -41,7 +41,7 @@
                                 "</span>";
                         }
                     } elseif (is_product_tag()) {
-                        echo esc_html__("Tag: ", "your-textdomain");
+                        echo esc_html__("Tag: ", "the-utv-shop");
                         single_term_title();
                     } else {
                         woocommerce_page_title();
@@ -78,7 +78,7 @@
 
                 <!-- Product Search -->
                 <div class="mb-4">
-                    <h5>Search</h5>
+                    <h5><?php esc_html_e("Search", "the-utv-shop"); ?></h5>
 
                     <form role="search"
                           method="get"
@@ -114,7 +114,7 @@
                 </div>
 
                 <!-- Categories -->
-                <h5>Categories</h5>
+                <h5><?php esc_html_e("Categories", "the-utv-shop"); ?></h5>
 
                 <div class="list-group list-group-flush">
                     <?php
@@ -173,12 +173,12 @@
                     <div class="col-12 mb-4" data-aos="fade-up" data-aos-duration="1600">
                         <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
                             <h2 class="mb-0">
-                                <?php if (is_product_category()) {
+                               	<?php if (is_product_category()) {
                                     single_term_title();
                                 } else {
                                     echo esc_html__(
                                         "All Products",
-                                        "your-textdomain",
+                                        "the-utv-shop",
                                     );
                                 } ?>
                             </h2>
@@ -280,7 +280,7 @@
                                                 <span class="badge bg-danger mt-2">
                                                     <?php esc_html_e(
                                                         "Out of Stock",
-                                                        "your-textdomain",
+                                                        "the-utv-shop",
                                                     ); ?>
                                                 </span>
                                             <?php endif; ?>
@@ -297,7 +297,7 @@
                         <div class="col-12">
                             <p><?php esc_html_e(
                                 "No products found.",
-                                "your-textdomain",
+                                "the-utv-shop",
                             ); ?></p>
                         </div>
                     <?php endif; ?>
