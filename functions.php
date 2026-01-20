@@ -802,4 +802,19 @@ add_filter("woocommerce_proceed_to_checkout", function () {
     </a>
 
     <?php return ob_get_clean();
-});
+}); // Language Detection
+add_action(
+    "template_redirect",
+    function () {
+        if (is_admin() || isset($_COOKIE["trp_language"])) {
+            return;
+        }
+        $browser_lang = $_SERVER["HTTP_ACCEPT_LANGUAGE"] ?? "";
+        if (strpos($browser_lang, "es") === 0) {
+            setcookie("trp_language", "es", time() + YEAR_IN_SECONDS, "/");
+            wp_redirect(home_url("/es/"));
+            exit();
+        }
+    },
+    1,
+);
