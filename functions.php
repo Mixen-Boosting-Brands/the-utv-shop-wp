@@ -775,6 +775,33 @@ add_action("init", function () {
             wp_unslash($_GET["filter_vehicle-model"]),
         );
     }
+}); // WooCommerce - Apply Vehicle Model + Brand filters to product queries
+add_action("woocommerce_product_query", function ($q) {
+    if (is_admin() || !$q->is_main_query()) {
+        return;
+    }
+    $tax_query = (array) $q->get("tax_query"); // Vehicle Model filter
+    if (!empty($_GET["filter_vehicle-model"])) {
+        $tax_query[] = [
+            "taxonomy" => "pa_vehicle-model",
+            "field" => "slug",
+            "terms" => sanitize_text_field(
+                wp_unslash($_GET["filter_vehicle-model"]),
+            ),
+        ];
+    } // Brand filter
+    if (!empty($_GET["filter_product_brand"])) {
+        $tax_query[] = [
+            "taxonomy" => "product_brand",
+            "field" => "slug",
+            "terms" => sanitize_text_field(
+                wp_unslash($_GET["filter_product_brand"]),
+            ),
+        ];
+    }
+    if (!empty($tax_query)) {
+        $q->set("tax_query", $tax_query);
+    }
 }); // WooCommerce - Recently Viewed Products
 add_action("template_redirect", function () {
     if (!is_singular("product")) {
