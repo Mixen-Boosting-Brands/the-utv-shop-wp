@@ -395,6 +395,42 @@ header {
     @include font-size(1.2rem);
 }
 
+// Product categories
+.category-brand-menu {
+    .brand-submenu {
+        list-style: none;
+        padding-left: 1rem;
+        margin-top: 0.5rem;
+
+        li {
+            a {
+                font-size: 0.9rem;
+                color: #6c757d;
+                text-decoration: none;
+
+                &:hover {
+                    color: #000;
+                }
+            }
+        }
+    }
+
+    // Desktop hover behavior
+    @media (min-width: 992px) {
+        li {
+            &:hover {
+                .brand-submenu {
+                    display: block;
+                }
+            }
+
+            .brand-submenu {
+                display: none;
+            }
+        }
+    }
+}
+
 footer {
     background-color: $secondary;
     color: $color-white;
