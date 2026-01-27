@@ -63,7 +63,7 @@
         <div class="row">
 
             <?php
-            // Active vehicle model
+            // Detect active vehicle model filter
             $vehicle_filter = "";
 
             if (!empty($_GET["filter_vehicle-model"])) {
@@ -74,20 +74,18 @@
             ?>
 
             <!-- Sidebar -->
-            <aside class="col-lg-3 mb-4 mb-lg-0 category-brand-menu"
-                data-aos="fade-up"
-                data-aos-duration="1400">
+            <aside class="col-lg-3 mb-4 mb-lg-0" data-aos="fade-up" data-aos-duration="1400">
 
-                <!-- Search -->
+                <!-- Product Search -->
                 <div class="mb-4">
                     <h5><?php esc_html_e("Search", "the-utv-shop"); ?></h5>
 
                     <form role="search"
-                        method="get"
-                        action="<?php echo esc_url(
-                            get_permalink(wc_get_page_id("shop")),
-                        ); ?>"
-                        class="d-flex gap-2">
+                          method="get"
+                          action="<?php echo esc_url(
+                              get_permalink(wc_get_page_id("shop")),
+                          ); ?>"
+                          class="d-flex gap-2">
 
                         <input
                             type="search"
@@ -101,7 +99,7 @@
 
                         <input type="hidden" name="post_type" value="product">
 
-                        <?php if ($vehicle_filter): ?>
+                        <?php if (!empty($vehicle_filter)): ?>
                             <input
                                 type="hidden"
                                 name="filter_vehicle-model"
@@ -109,7 +107,7 @@
                             >
                         <?php endif; ?>
 
-                        <button class="btn btn-primary rounded-pill">
+                        <button type="submit" class="btn btn-primary rounded-pill">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </form>
@@ -118,130 +116,53 @@
                 <!-- Categories -->
                 <h5><?php esc_html_e("Categories", "the-utv-shop"); ?></h5>
 
-                <ul class="list-group list-group-flush">
-
+                <div class="list-group list-group-flush">
                     <?php
-                    $categories = get_terms([
+                    $product_categories = get_terms([
                         "taxonomy" => "product_cat",
                         "hide_empty" => true,
                         "parent" => 0,
                     ]);
 
-                    foreach ($categories as $category):
+                    if (
+                        !empty($product_categories) &&
+                        !is_wp_error($product_categories)
+                    ):
+                        foreach ($product_categories as $category):
 
-                        // Base category link
-                        $category_link = get_term_link($category);
+                            $current_class = is_product_category(
+                                $category->slug,
+                            )
+                                ? "active"
+                                : "";
 
-                        if ($vehicle_filter) {
-                            $category_link = add_query_arg(
-                                "filter_vehicle-model",
-                                $vehicle_filter,
-                                $category_link,
-                            );
-                        }
+                            $category_link = get_term_link($category);
 
-                        /**
-                         * 1️⃣ Get product IDs in THIS category (+ vehicle model if active)
-                         */
-                        $tax_query = [
-                            [
-                                "taxonomy" => "product_cat",
-                                "field" => "term_id",
-                                "terms" => $category->term_id,
-                            ],
-                        ];
-
-                        if ($vehicle_filter) {
-                            $tax_query[] = [
-                                "taxonomy" => "pa_vehicle-model",
-                                "field" => "slug",
-                                "terms" => $vehicle_filter,
-                            ];
-                        }
-
-                        $product_ids = get_posts([
-                            "post_type" => "product",
-                            "posts_per_page" => -1,
-                            "fields" => "ids",
-                            "tax_query" => $tax_query,
-                        ]);
-
-                        /**
-                         * 2️⃣ Get brands ONLY from those products
-                         */
-                        $brands = [];
-
-                        if (!empty($product_ids)) {
-                            $brands = wp_get_object_terms(
-                                $product_ids,
-                                "product_brand",
-                                ["hide_empty" => true],
-                            );
-                        }
-                        ?>
-
-                        <li class="list-group-item border-0 px-0">
-
-                            <!-- Category row -->
-                            <div class="d-flex justify-content-between align-items-center">
-
-                                <a href="<?php echo esc_url($category_link); ?>"
-                                class="fw-semibold text-decoration-none">
-                                    <?php echo esc_html($category->name); ?>
-                                </a>
-
-                                <?php if (!empty($brands)): ?>
-                                    <!-- Mobile toggle -->
-                                    <button
-                                        class="btn btn-sm d-lg-none"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#brands-<?php echo esc_attr(
-                                            $category->term_id,
-                                        ); ?>"
-                                    >
-                                        <i class="fa-solid fa-chevron-down"></i>
-                                    </button>
-                                <?php endif; ?>
-                            </div>
-
-                            <!-- Brand submenu -->
-                            <?php if (!empty($brands)): ?>
-                                <ul
-                                    id="brands-<?php echo esc_attr(
-                                        $category->term_id,
-                                    ); ?>"
-                                    class="brand-submenu collapse d-lg-block mt-2"
-                                >
-                                    <?php foreach ($brands as $brand):
-                                        $brand_link = add_query_arg(
-                                            [
-                                                "filter_product_brand" =>
-                                                    $brand->slug,
-                                                "filter_vehicle-model" => $vehicle_filter,
-                                            ],
-                                            $category_link,
-                                        ); ?>
-                                        <li>
-                                            <a href="<?php echo esc_url(
-                                                $brand_link,
-                                            ); ?>">
-                                                <?php echo esc_html(
-                                                    $brand->name,
-                                                ); ?>
-                                            </a>
-                                        </li>
-                                    <?php
-                                    endforeach; ?>
-                                </ul>
-                            <?php endif; ?>
-
-                        </li>
-
+                            if (!empty($vehicle_filter)) {
+                                $category_link = add_query_arg(
+                                    "filter_vehicle-model",
+                                    $vehicle_filter,
+                                    $category_link,
+                                );
+                            }
+                            ?>
+                            <a
+                                href="<?php echo esc_url($category_link); ?>"
+                                class="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0 <?php echo esc_attr(
+                                    $current_class,
+                                ); ?>"
+                            >
+                                <span><?php echo esc_html(
+                                    $category->name,
+                                ); ?></span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </a>
                     <?php
-                    endforeach;
+                        endforeach;
+                    endif;
                     ?>
+                </div>
 
-                </ul>
             </aside>
 
             <!-- Products -->
