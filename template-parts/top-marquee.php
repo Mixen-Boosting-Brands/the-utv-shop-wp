@@ -1,4 +1,7 @@
 <?php
+var_dump(get_field("english_top_text", "option"));
+var_dump(get_field("spanish_top_text", "option"));
+
 // Detect current language from TranslatePress cookie
 $current_lang = $_COOKIE["trp_language"] ?? "en";
 
