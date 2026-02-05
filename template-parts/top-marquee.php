@@ -1,28 +1,35 @@
 <?php
-var_dump(get_field("english_top_text", "option"));
-var_dump(get_field("spanish_top_text", "option"));
-
 // Detect current language from TranslatePress cookie
 $current_lang = $_COOKIE["trp_language"] ?? "en";
 
-// Select the correct ACF option field
-$text =
-    strpos($current_lang, "es") === 0
-        ? get_field("spanish_top_text", "option")
-        : get_field("english_top_text", "option");
+// Get ACF group field (Options Page)
+$top_banner = get_field("top_banner_text", "option");
 
-// Fallback to English if Spanish is empty
-if (!$text) {
-    $text = get_field("english_top_text", "option");
+// Safety check — ensure group exists
+if (!is_array($top_banner)) {
+    return;
+}
+
+// Select text based on language
+if (
+    strpos($current_lang, "es") === 0 &&
+    !empty($top_banner["spanish_top_text"])
+) {
+    $text = $top_banner["spanish_top_text"];
+} else {
+    $text = $top_banner["english_top_text"] ?? "";
+}
+
+// Stop if no text at all
+if (empty($text)) {
+    return;
 }
 ?>
 
 <section id="marquee-primary" class="marquee my-4">
 	<div class="marquee-content">
-		<?php if ($text): ?>
-			<?php for ($i = 0; $i < 16; $i++): ?>
-				<h1><?php echo esc_html($text); ?></h1>
-			<?php endfor; ?>
-		<?php endif; ?>
+		<?php for ($i = 0; $i < 16; $i++): ?>
+			<h1><?php echo esc_html($text); ?></h1>
+		<?php endfor; ?>
 	</div>
 </section>
