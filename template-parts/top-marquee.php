@@ -3,7 +3,7 @@
 $current_lang = $_COOKIE["trp_language"] ?? "en";
 
 // Get ACF group field from Options Page
-$top_banner = get_field("top_banner_text", "option");
+$top_banner = get_field("top_banner_text", "options");
 
 // Default to empty text
 $text = "";
