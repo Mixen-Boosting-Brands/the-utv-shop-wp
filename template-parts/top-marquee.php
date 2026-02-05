@@ -1,12 +1,17 @@
 <?php
-// Detect current language (TranslatePress cookie)
-$current_lang = $_COOKIE["trp_language"] ?? "en";
+// Get TranslatePress instance
+if (class_exists("TRP_Translate_Press")) {
+    $trp = TRP_Translate_Press::get_trp_instance();
+    $current_lang = $trp->get_current_language();
+} else {
+    $current_lang = "en_US";
+}
 
-// IMPORTANT: Options Page post_id is "options"
+// Get ACF option fields
 $english_text = get_field("english_top_text", "options");
 $spanish_text = get_field("spanish_top_text", "options");
 
-// Decide which text to show
+// Decide text
 if (strpos($current_lang, "es") === 0 && !empty($spanish_text)) {
     $text = $spanish_text;
 } else {
