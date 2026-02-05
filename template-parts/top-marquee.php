@@ -1,24 +1,16 @@
 <?php
-// Detect current language from TranslatePress cookie
+// Detect current language (TranslatePress cookie)
 $current_lang = $_COOKIE["trp_language"] ?? "en";
 
-// Get ACF group field from Options Page
-$top_banner = get_field("top_banner_text", "options");
+// IMPORTANT: Options Page post_id is "options"
+$english_text = get_field("english_top_text", "options");
+$spanish_text = get_field("spanish_top_text", "options");
 
-// Default to empty text
-$text = "";
-
-// Ensure group exists
-if (is_array($top_banner)) {
-    // Pick language-specific text
-    if (
-        strpos($current_lang, "es") === 0 &&
-        !empty($top_banner["spanish_top_text"])
-    ) {
-        $text = $top_banner["spanish_top_text"];
-    } elseif (!empty($top_banner["english_top_text"])) {
-        $text = $top_banner["english_top_text"];
-    }
+// Decide which text to show
+if (strpos($current_lang, "es") === 0 && !empty($spanish_text)) {
+    $text = $spanish_text;
+} else {
+    $text = $english_text;
 }
 ?>
 
