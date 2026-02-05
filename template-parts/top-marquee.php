@@ -1,17 +1,22 @@
 <?php
-// Get TranslatePress instance
-if (class_exists("TRP_Translate_Press")) {
-    $trp = TRP_Translate_Press::get_trp_instance();
-    $current_lang = $trp->get_current_language();
+// 1. Detect language safely
+$current_lang = "en";
+
+if (function_exists("trp_get_current_language")) {
+    $current_lang = trp_get_current_language();
 } else {
-    $current_lang = "en_US";
+    // Fallback: detect by URL
+    $request_uri = $_SERVER["REQUEST_URI"] ?? "";
+    if (strpos($request_uri, "/es/") !== false) {
+        $current_lang = "es";
+    }
 }
 
-// Get ACF option fields
+// 2. Get ACF option fields (correct post_id)
 $english_text = get_field("english_top_text", "options");
 $spanish_text = get_field("spanish_top_text", "options");
 
-// Decide text
+// 3. Choose text
 if (strpos($current_lang, "es") === 0 && !empty($spanish_text)) {
     $text = $spanish_text;
 } else {
