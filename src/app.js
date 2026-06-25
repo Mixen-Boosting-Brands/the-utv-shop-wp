@@ -13,6 +13,13 @@ document.addEventListener("DOMContentLoaded", function () {
     var header = document.getElementById("navbar");
     var logo = document.getElementById("logo-navbar");
 
+    function updateBodyPadding() {
+        document.body.style.paddingTop = header.offsetHeight + "px";
+    }
+
+    updateBodyPadding();
+    window.addEventListener("resize", updateBodyPadding);
+
     function updateScroll() {
         var scroll = window.pageYOffset || document.documentElement.scrollTop;
 
